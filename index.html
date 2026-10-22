@@ -194,7 +194,8 @@ p{margin:0}
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:64px 64px;-webkit-mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 78%);mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 78%)}
 .hero__inner{position:relative;display:flex;flex-direction:column;gap:30px}
-.hero__text{position:relative;z-index:4;display:flex;flex-direction:column;gap:20px}
+.hero__text{position:relative;z-index:4;display:flex;flex-direction:column;gap:20px;pointer-events:none}
+.hero__text a,.hero__text button{pointer-events:auto}
 .status{display:inline-flex;align-items:center;gap:.6em;font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.04em;color:var(--muted)}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--accent-2);animation:ping 2.2s infinite}
 .hero__name{font-size:clamp(2.2rem,11.4vw,5.2rem);display:flex;flex-direction:column;line-height:.86}
@@ -203,40 +204,23 @@ p{margin:0}
 .hero__loc{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);letter-spacing:.04em}
 .hero__ctas{display:flex;flex-wrap:wrap;gap:10px}
 
-/* Icônes sociales du hero */
-.hero__social{list-style:none;margin:8px 0 6px;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
-.social{position:relative;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;color:var(--hi);text-decoration:none;box-shadow:inset 0 0 0 1.5px var(--accent);
-  transition:background-color .3s,color .3s,transform .35s var(--ease),box-shadow .35s}
-.social svg{width:22px;height:22px}
-.social:hover,.social:focus-visible{background:var(--accent);color:var(--on-accent);transform:translateY(-3px);box-shadow:inset 0 0 0 1.5px var(--accent),0 10px 28px -8px color-mix(in srgb,var(--accent-2) 70%,transparent)}
-.social::after{content:attr(data-label);position:absolute;top:calc(100% + 8px);left:50%;translate:-50% 4px;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.04em;white-space:nowrap;color:var(--muted);opacity:0;pointer-events:none;transition:opacity .25s,translate .25s}
-.social:hover::after,.social:focus-visible::after{opacity:1;translate:-50% 0}
+/* Icônes sociales du hero : colonne verticale à gauche du visage, sans cercle */
+.hero__social{position:absolute;left:2%;top:16%;z-index:3;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:auto;animation:fadeIn 1s .6s var(--ease) both}
+.social{position:relative;display:grid;place-items:center;width:34px;height:34px;color:var(--text);text-decoration:none;transition:color .3s,transform .35s var(--ease)}
+.social svg{width:24px;height:24px}
+.social:hover,.social:focus-visible{color:var(--hi);transform:scale(1.15)}
+.social::after{content:attr(data-label);position:absolute;right:calc(100% + 10px);top:50%;translate:4px -50%;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.04em;white-space:nowrap;color:var(--muted);opacity:0;pointer-events:none;transition:opacity .25s,translate .25s}
+.social:hover::after,.social:focus-visible::after{opacity:1;translate:0 -50%}
+@media (min-width:1024px){.hero__social{left:14%;top:26%;gap:16px}}
 
-/* Bouton CV avec mascotte « document » */
-.cvbtn{display:inline-flex;align-items:center;gap:12px;padding:6px 22px 6px 6px;border-radius:999px;text-decoration:none;color:var(--on-accent);
-  background:linear-gradient(100deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--accent-2)));
-  box-shadow:0 12px 30px -12px color-mix(in srgb,var(--accent-2) 70%,transparent);transition:transform .35s var(--ease),box-shadow .35s}
-.cvbtn:hover,.cvbtn:focus-visible{transform:translateY(-3px);box-shadow:0 18px 40px -12px color-mix(in srgb,var(--accent-2) 90%,transparent)}
-.cvbot{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:color-mix(in srgb,var(--on-accent) 16%,transparent)}
-.cvbot svg{width:36px;height:36px;overflow:visible}
-.cvbot .doc{fill:var(--on-accent)}
-.cvbot .fold{fill:var(--accent-2)}
-.cvbot .eye{fill:var(--accent);transform-box:fill-box;transform-origin:center;animation:blinkEye 4.5s infinite}
-.cvbot .cheek{fill:var(--accent-2);opacity:.75}
-.cvbot .smile,.cvbot .lines{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round}
-.cvbot .lines{opacity:.55}
-.cvbot .badge{fill:var(--accent-2);stroke:var(--on-accent);stroke-width:1.5}
-.cvbot .arrow{fill:none;stroke:var(--d-on-accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.cvbot .bot{transform-box:fill-box;transform-origin:50% 90%;animation:floaty 3.2s ease-in-out infinite}
-.cvbtn:hover .bot{animation:wiggle .6s var(--ease)}
-.cvbtn:hover .dl{animation:dropDl .7s var(--ease) infinite}
-.cvbtn__txt{display:flex;flex-direction:column;line-height:1.1}
-.cvbtn__txt b{font-family:var(--f-display);font-weight:850;font-stretch:80%;text-transform:uppercase;font-size:1rem;letter-spacing:.05em}
-.cvbtn__txt small{font-family:var(--f-mono);font-size:.62rem;opacity:.85}
-@keyframes blinkEye{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-@keyframes floaty{50%{transform:translateY(-2px)}}
-@keyframes wiggle{25%{transform:rotate(-8deg)}60%{transform:rotate(6deg)}}
-@keyframes dropDl{50%{transform:translateY(2.5px)}}
+/* Lien « Télécharger mon CV » : simple, sans cercle */
+.cvlink{align-self:flex-start;display:inline-flex;align-items:center;gap:.6em;padding-bottom:4px;color:var(--hi);text-decoration:none;
+  font-family:var(--f-display);font-weight:800;font-stretch:84%;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2)) left bottom/100% 2px no-repeat;transition:background-size .35s var(--ease)}
+.cvlink:hover,.cvlink:focus-visible{background-size:35% 2px}
+.cvlink__ic{display:grid;place-items:center}
+.cvlink__ic svg{width:22px;height:22px;transition:transform .35s var(--ease)}
+.cvlink:hover .cvlink__ic svg{transform:translateY(3px)}
 
 .hero__stage{position:relative;width:min(100%,520px);margin-inline:auto;aspect-ratio:890/900}
 .hero__portrait{position:absolute;inset:0;margin:0;translate:0 var(--py,0px);animation:fadeIn 1.2s .15s var(--ease) both}
@@ -247,7 +231,7 @@ p{margin:0}
   .hero{padding-top:calc(84px + env(safe-area-inset-top,0px))}
   .hero__inner{display:block;min-height:clamp(680px,calc(100svh - 84px),940px)}
   .hero__text{max-width:none;padding-top:18px}
-  .hero__name{font-size:clamp(4.4rem,7.3vw,8.4rem)}
+  .hero__name{font-size:clamp(2.8rem,4.8vw,5.6rem)}
   .hero__role,.status{max-width:38%}
   .hero__text{padding-top:clamp(18px,6vh,70px)}
   .hero__stage{position:absolute;inset:0;width:auto;margin:0;aspect-ratio:auto;z-index:2;pointer-events:none}
@@ -517,14 +501,16 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
         <span class="l2 intro" style="--d:.24s">Ayoub</span>
       </h1>
       <p class="hero__role intro" style="--d:.36s" data-i18n="hero.role">Ingénieur en cybersécurité &amp; passionné d’IA</p>
-      <!-- Réseaux sociaux + bouton CV (générés depuis CONTACTS dans le script) -->
-      <ul class="hero__social intro" style="--d:.48s" id="heroSocial" data-i18n-aria="hero.socialLabel" aria-label="Réseaux et CV"></ul>
+      <!-- CV : placez cv.pdf à la racine du dépôt -->
+      <a class="cvlink intro" style="--d:.48s" href="cv.pdf" download="CV-Ayoub-ID-OUISSAADNE.pdf"><span class="cvlink__ic" data-ic="download"></span><span data-i18n="hero.cvLink">Télécharger mon CV</span></a>
     </div>
 
     <div class="hero__stage">
       <!-- [PHOTO] remplacez assets/photo.webp par votre portrait détouré (PNG/WebP transparent) -->
       <figure class="hero__portrait" data-speed="-0.06">
         <img src="assets/photo.webp" width="890" height="900" fetchpriority="high" data-i18n-alt="hero.photo" alt="Portrait d’Ayoub ID-OUISSAADNE">
+        <!-- Réseaux sociaux en colonne, à gauche du visage (générés depuis CONTACTS dans le script) -->
+        <ul class="hero__social" id="heroSocial" data-i18n-aria="hero.socialLabel" aria-label="Réseaux sociaux"></ul>
       </figure>
     </div>
   </div>
@@ -898,7 +884,7 @@ const CONTACTS = [
   { id: "linkedin", label: "LinkedIn", icon: "in", value: "in/ayoub-id-ouissaadne", href: "https://www.linkedin.com/in/ayoub-id-ouissaadne-bb8a702a4/" },
 ];
 
-/* Icônes affichées dans le hero (dans cet ordre), suivies du bouton CV */
+/* Icônes affichées dans le hero, de haut en bas */
 const HERO_SOCIALS = ["linkedin", "github", "whatsapp", "email"];
 
 /* =====================================================================
@@ -916,7 +902,7 @@ const I18N = {
     "cv.long": "Télécharger mon CV", "cv.short2": "CV (PDF)",
     "hero.status": "Recherche un stage de fin d’études (PFE)",
     "hero.role": "Ingénieur en cybersécurité &amp; passionné d’IA",
-    "hero.socialLabel": "Réseaux sociaux et CV", "hero.cv": "Mon CV", "hero.cvSub": "Télécharger",
+    "hero.socialLabel": "Réseaux sociaux", "hero.cvLink": "Télécharger mon CV",
     "hero.cta": "Voir mes projets", "hero.cta2": "Me contacter",
     "hero.photo": "Portrait d’Ayoub ID-OUISSAADNE",
     "man.text": "DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.",
@@ -959,7 +945,7 @@ const I18N = {
     "cv.long": "Download my CV", "cv.short2": "CV (PDF)",
     "hero.status": "Looking for a final-year internship (PFE)",
     "hero.role": "Cybersecurity Engineer &amp; AI Enthusiast",
-    "hero.socialLabel": "Social links and résumé", "hero.cv": "My résumé", "hero.cvSub": "Download",
+    "hero.socialLabel": "Social links", "hero.cvLink": "Download resume",
     "hero.cta": "See my projects", "hero.cta2": "Get in touch",
     "hero.photo": "Portrait of Ayoub ID-OUISSAADNE",
     "man.text": "<em>DEFENDING</em> SYSTEMS, <em>HUNTING</em> THREATS, BUILDING <em>TRUST</em>. SOC &amp; CYBERSECURITY ENGINEER <em>IN THE MAKING</em>.",
@@ -1007,7 +993,6 @@ const ICONS = {
   chat: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.3 8.4c.3-.3.8-.3 1 .1l.6 1.3c.1.3 0 .6-.2.8l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.5-.3.8-.2l1.3.6c.4.2.4.7.1 1l-.6.6c-.5.5-1.3.6-1.9.3a7 7 0 0 1-3.6-3.6c-.3-.6-.2-1.4.3-1.9Z" fill="currentColor"/></svg>',
   code: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3.1-.4 6.4-1.5 6.4-7A5.4 5.4 0 0 0 20 4.8 5.1 5.1 0 0 0 19.9 1S18.7.7 16 2.5a13.4 13.4 0 0 0-7 0C6.3.7 5.1 1 5.1 1A5.1 5.1 0 0 0 5 4.8a5.4 5.4 0 0 0-1.5 3.8c0 5.4 3.3 6.6 6.4 7a3.4 3.4 0 0 0-.9 2.6V22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   in: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="2" y="9" width="4" height="12" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="4" r="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
-  cvbot: '<svg viewBox="0 0 40 40" aria-hidden="true"><g class="bot"><path class="doc" d="M10 3h13l9 9v22a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z"/><path class="fold" d="M23 3v6.5a2.5 2.5 0 0 0 2.5 2.5H32Z"/><circle class="eye" cx="15" cy="18" r="1.7"/><circle class="eye" cx="23" cy="18" r="1.7"/><circle class="cheek" cx="12.5" cy="21.6" r="1.4"/><circle class="cheek" cx="25.5" cy="21.6" r="1.4"/><path class="smile" d="M16 21.5q3 3 6 0"/><path class="lines" d="M13 27.5h12M13 31h8"/></g><g class="dl"><circle class="badge" cx="31" cy="31" r="7"/><path class="arrow" d="M31 27.6v6.2m-2.7-2.7 2.7 2.7 2.7-2.7"/></g></svg>',
 };
 
 const root = document.documentElement;
@@ -1127,9 +1112,7 @@ function renderContact() {
   }).join("");
   $("#heroSocial").innerHTML = HERO_SOCIALS.map(id => CONTACTS.find(c => c.id === id))
     .filter(c => c && !isTodo(c.href))
-    .map(c => `<li><a class="social" href="${c.href}"${ext(c.href)} aria-label="${L(c.label)}" data-label="${L(c.label)}">${ICONS[c.icon]}</a></li>`).join("")
-    + `<li><a class="cvbtn" href="cv.pdf" download="CV-Ayoub-ID-OUISSAADNE.pdf"><span class="cvbot" aria-hidden="true">${ICONS.cvbot}</span>
-        <span class="cvbtn__txt"><b>${t("hero.cv")}</b><small>PDF · ${t("hero.cvSub")}</small></span></a></li>`;
+    .map(c => `<li><a class="social" href="${c.href}"${ext(c.href)} aria-label="${L(c.label)}" data-label="${L(c.label)}">${ICONS[c.icon]}</a></li>`).join("");
   $("#footSocial").innerHTML = CONTACTS.filter(c => !isTodo(c.href)).map(c => `<li><a href="${c.href}"${ext(c.href)}>${L(c.label)}</a></li>`).join("")
     + CONTACTS.filter(c => SHOW_TODO && isTodo(c.href)).map(c => `<li><span class="hero__loc">${L(c.label)} · ${TODO}</span></li>`).join("");
 }
