@@ -31,7 +31,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23060D1A'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='%2300E0FF'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;600&family=Mr+Dafoe&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;600&family=Courier+Prime&family=Mr+Dafoe&family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Sacramento&display=swap">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Ayoub ID-OUISSAADNE","jobTitle":"Cybersecurity & Digital Trust Engineering Student","email":"mailto:ayoubidouissaadn8@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Taroudant","addressRegion":"Souss-Massa","addressCountry":"MA"},"sameAs":["https://github.com/iday00b","https://www.linkedin.com/in/ayoub-id-ouissaadne-bb8a702a4/"],"knowsAbout":["SOC","SIEM","Wazuh","Splunk","Elastic Stack","MITRE ATT&CK","ISO 27001"]}
 </script>
@@ -65,6 +65,8 @@
   --f-serif:"Playfair Display",Georgia,"Times New Roman",serif;
   --f-script:"Mr Dafoe","Brush Script MT","Segoe Script",cursive;
   --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --f-type:"Courier Prime","Courier New",Courier,monospace;   /* paragraphe d'accueil (machine à écrire) */
+  --f-pen:"Sacramento","Segoe Script",cursive;                /* mots manuscrits */
   --t-xs:.75rem; --t-sm:.875rem; --t-md:1.0625rem; --t-lg:1.25rem;
   --t-h3:clamp(1.35rem,2.1vw,1.85rem);
   --t-h2:clamp(2.7rem,7.2vw,6.4rem);
@@ -212,6 +214,25 @@ p{margin:0}
 .social::after{content:attr(data-label);position:absolute;right:calc(100% + 10px);top:50%;translate:4px -50%;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.04em;white-space:nowrap;color:var(--muted);opacity:0;pointer-events:none;transition:opacity .25s,translate .25s}
 .social:hover::after,.social:focus-visible::after{opacity:1;translate:0 -50%}
 @media (min-width:1024px){.hero__social{left:14%;top:26%;gap:16px}}
+
+/* Paragraphe d'accueil (colonne de droite sur grand écran) */
+.welcome{position:relative;z-index:4;max-width:36ch}
+.welcome__text{font-family:var(--f-type);font-size:clamp(.98rem,1.15vw,1.12rem);line-height:2.1;color:var(--text)}
+.w-pen{font-family:var(--f-pen);font-size:1.9em;line-height:1;padding:0 .06em;color:var(--accent);text-decoration:none}
+.w-proj{color:var(--accent-2);transition:text-shadow .3s}
+.w-proj:hover,.w-proj:focus-visible{text-shadow:0 0 18px color-mix(in srgb,var(--accent-2) 60%,transparent)}
+.me-word{font-family:var(--f-script);font-size:1.75em;line-height:1;padding:0 .14em;color:var(--muted);background:none;border:0;cursor:pointer;
+  border-bottom:2px dotted var(--accent);transition:color .3s}
+.me-word:hover,.me-word:focus-visible,.me-word[aria-expanded="true"]{color:var(--text)}
+/* Petit cadre photo qui apparaît au-dessus de « me » */
+.me-pop{position:absolute;left:0;top:0;z-index:20;width:170px;margin:0;padding:6px;border-radius:14px;background:var(--surface);pointer-events:none;
+  box-shadow:0 0 0 3px var(--accent),0 24px 50px -16px color-mix(in srgb,var(--d-bg) 70%,transparent),0 0 40px -8px color-mix(in srgb,var(--accent-2) 55%,transparent);
+  opacity:0;visibility:hidden;transform:rotate(-12deg) scale(.6);transform-origin:50% 100%;transition:opacity .3s var(--ease),transform .45s var(--ease),visibility .3s}
+.me-pop.is-on{opacity:1;visibility:visible;transform:rotate(-5deg) scale(1)}
+.me-pop img{width:100%;height:auto;aspect-ratio:420/490;object-fit:cover;border-radius:9px}
+@media (min-width:1024px){
+  .welcome{position:absolute;top:36%;right:max(clamp(16px,4vw,56px),env(safe-area-inset-right,0px));width:min(27vw,400px);max-width:none}
+}
 
 /* Lien « Télécharger mon CV » : simple, sans cercle */
 .cvlink{align-self:flex-start;display:inline-flex;align-items:center;gap:.6em;padding-bottom:4px;color:var(--hi);text-decoration:none;
@@ -503,6 +524,15 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
       <p class="hero__role intro" style="--d:.36s" data-i18n="hero.role">Ingénieur en cybersécurité &amp; passionné d’IA</p>
       <!-- CV : placez cv.pdf à la racine du dépôt -->
       <a class="cvlink intro" style="--d:.48s" href="cv.pdf" download="CV-Ayoub-ID-OUISSAADNE.pdf"><span class="cvlink__ic" data-ic="download"></span><span data-i18n="hero.cvLink">Télécharger mon CV</span></a>
+    </div>
+
+    <!-- Paragraphe d'accueil : survoler « me / moi » affiche une petite photo -->
+    <div class="welcome" id="welcome">
+      <p class="welcome__text intro" style="--d:.55s" data-i18n="hero.welcome">Bienvenue sur mon <span class="w-pen">portfolio</span>, où vous pouvez en savoir plus sur <button type="button" class="me-word" aria-expanded="false" aria-controls="mePop">moi</button> et découvrir mes derniers <a class="w-pen w-proj" href="#projects">projets</a>.</p>
+      <figure class="me-pop" id="mePop" aria-hidden="true">
+        <!-- [PHOTO] photo décontractée : remplacez assets/me.webp -->
+        <img src="assets/me.webp" width="420" height="490" data-i18n-alt="hero.mePhoto" alt="Ayoub, photo prise en extérieur">
+      </figure>
     </div>
 
     <div class="hero__stage">
@@ -903,6 +933,8 @@ const I18N = {
     "hero.status": "Recherche un stage de fin d’études (PFE)",
     "hero.role": "Ingénieur en cybersécurité &amp; passionné d’IA",
     "hero.socialLabel": "Réseaux sociaux", "hero.cvLink": "Télécharger mon CV",
+    "hero.welcome": "Bienvenue sur mon <span class=\"w-pen\">portfolio</span>, où vous pouvez en savoir plus sur <button type=\"button\" class=\"me-word\" aria-expanded=\"false\" aria-controls=\"mePop\">moi</button> et découvrir mes derniers <a class=\"w-pen w-proj\" href=\"#projects\">projets</a>.",
+    "hero.mePhoto": "Ayoub, photo prise en extérieur",
     "hero.cta": "Voir mes projets", "hero.cta2": "Me contacter",
     "hero.photo": "Portrait d’Ayoub ID-OUISSAADNE",
     "man.text": "DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.",
@@ -946,6 +978,8 @@ const I18N = {
     "hero.status": "Looking for a final-year internship (PFE)",
     "hero.role": "Cybersecurity Engineer &amp; AI Enthusiast",
     "hero.socialLabel": "Social links", "hero.cvLink": "Download resume",
+    "hero.welcome": "Welcome to my <span class=\"w-pen\">portfolio</span>, where you can get an idea about <button type=\"button\" class=\"me-word\" aria-expanded=\"false\" aria-controls=\"mePop\">me</button> and explore my latest <a class=\"w-pen w-proj\" href=\"#projects\">projects</a>.",
+    "hero.mePhoto": "Ayoub, outdoor photo",
     "hero.cta": "See my projects", "hero.cta2": "Get in touch",
     "hero.photo": "Portrait of Ayoub ID-OUISSAADNE",
     "man.text": "<em>DEFENDING</em> SYSTEMS, <em>HUNTING</em> THREATS, BUILDING <em>TRUST</em>. SOC &amp; CYBERSECURITY ENGINEER <em>IN THE MAKING</em>.",
@@ -1218,6 +1252,36 @@ function setupReveal() {
     if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("will-reveal"); io.observe(el); }
   });
 }
+
+/* ---------- « me / moi » : petite photo au survol du mot (paragraphe d'accueil) ---------- */
+(function mePopup() {
+  const box = $("#welcome"), pop = $("#mePop");
+  function show(word) {
+    const b = word.getBoundingClientRect(), c = box.getBoundingClientRect(), w = pop.offsetWidth;
+    /* centré au-dessus du mot, sans sortir de l'écran */
+    const x = Math.max(16 - c.left, Math.min(b.left - c.left + b.width / 2 - w / 2, innerWidth - c.left - w - 16));
+    pop.style.left = x + "px";
+    /* au-dessus du mot, ou en dessous s'il n'y a pas la place sous l'en-tête */
+    const above = b.top - pop.offsetHeight - 14 > 80;
+    pop.style.top = (above ? b.top - c.top - pop.offsetHeight - 14 : b.bottom - c.top + 14) + "px";
+    pop.classList.add("is-on");
+    word.setAttribute("aria-expanded", "true");
+  }
+  function hide(word) {
+    pop.classList.remove("is-on");
+    if (word) word.setAttribute("aria-expanded", "false");
+  }
+  const wordOf = (e) => e.target.closest(".me-word");
+  box.addEventListener("mouseover", e => { const w = wordOf(e); if (w) show(w); });
+  box.addEventListener("mouseout", e => { const w = wordOf(e); if (w && !w.contains(e.relatedTarget)) hide(w); });
+  box.addEventListener("focusin", e => { const w = wordOf(e); if (w) show(w); });
+  box.addEventListener("focusout", e => { const w = wordOf(e); if (w) hide(w); });
+  box.addEventListener("click", e => {          /* écrans tactiles : un tap affiche / masque */
+    const w = wordOf(e);
+    if (!w || e.pointerType === "mouse") return;
+    pop.classList.contains("is-on") ? hide(w) : show(w);
+  });
+})();
 
 /* ---------- Init ---------- */
 $("#year").textContent = new Date().getFullYear();
