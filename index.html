@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ayoub ID-OUISSAADNE</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!-- =========================================================
+     PORTFOLIO · ID-OUISSAADNE Ayoub
+     Fichier unique (HTML + CSS + JS vanilla), compatible GitHub Pages.
+     - Photo : assets/photo.webp (portrait détouré, fond transparent)
+     - CV    : cv.pdf à la racine du dépôt
+     - Données (projets, expériences, certifs, outils...) : voir la section
+       « DONNÉES » dans le <script> en bas de page.
+     - Textes FR / EN : objet I18N dans le même <script>.
+     ========================================================= -->
+<meta name="description" content="Portfolio d’Ayoub ID-OUISSAADNE, élève ingénieur en cybersécurité (ENSIASD). SOC, SIEM, détection et réponse. Top 1% TryHackMe Maroc. Recherche un stage PFE.">
+<meta name="author" content="Ayoub ID-OUISSAADNE">
+<meta name="theme-color" content="#1F2418">
+<!-- [À REMPLACER] : mettez l’URL finale de votre site GitHub Pages -->
+<link rel="canonical" href="https://iday00b.github.io/">
+<!-- Open Graph / partage sur les réseaux -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ayoub ID-OUISSAADNE · SOC & Cybersecurity">
+<meta property="og:description" content="Élève ingénieur en cybersécurité et confiance numérique. SOC, SIEM, détection, Top 1% TryHackMe Maroc.">
+<meta property="og:url" content="https://iday00b.github.io/">
+<meta property="og:image" content="https://iday00b.github.io/assets/photo.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231F2418'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='%23D4FF00'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;600&family=Mr+Dafoe&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Ayoub ID-OUISSAADNE","jobTitle":"Cybersecurity & Digital Trust Engineering Student","email":"mailto:ayoubidouissaadn8@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Taroudant","addressRegion":"Souss-Massa","addressCountry":"MA"},"sameAs":["https://github.com/iday00b"],"knowsAbout":["SOC","SIEM","Wazuh","Splunk","Elastic Stack","MITRE ATT&CK","ISO 27001"]}
+</script>
+<script>
+  /* Thème appliqué avant le rendu pour éviter le flash : localStorage, sinon prefers-color-scheme */
+  (function () { try { var saved = localStorage.getItem("theme"); if (saved === "light" || saved === "dark") document.documentElement.setAttribute("data-theme", saved); } catch (e) {} })();
+</script>
+<style>
+/* Layout : bandes plein écran alternées (vert très sombre / crème), titres grotesque serrée + serif fluo, cartes inclinées en collage. */
+:root{
+  /* ---- Palette ---- */
+  --lime:#D4FF00;
+  --ink:#1F2418;
+  --black:#0B0D08;
+  --cream:#F4F2EA;
+  --cream-deep:#E9E6DA;
+  --cyber:#7EA2FF;            /* accent secondaire, uniquement sur fond sombre */
+
+  /* ---- Thème clair (par défaut) ---- */
+  --bg:var(--cream);
+  --bg-alt:var(--cream-deep);
+  --fg:var(--ink);
+  --muted:#575C4D;
+  --line:rgba(31,36,24,.18);
+  --hl-fg:var(--ink);         /* mots en serif : surligneur fluo sur fond clair (contraste AA) */
+  --hl-bg:linear-gradient(transparent 60%, var(--lime) 60%, var(--lime) 93%, transparent 93%);
+  --cyber-text:#2449B8;
+  --chip-bg:var(--ink);
+  --chip-fg:var(--cream);
+  --header-bg:rgba(244,242,234,.9);
+  --header-fg:var(--ink);
+
+  /* ---- Bandes sombres (identiques dans les deux thèmes) ---- */
+  --band-bg:var(--ink);
+  --band-fg:var(--cream);
+  --band-muted:#BDC0B2;
+  --band-line:rgba(244,242,234,.14);
+  --band-card:#283020;
+  --hero-top:#10130C;
+  --shadow:0 26px 50px -20px rgba(11,13,8,.6);
+
+  /* ---- Typo ---- */
+  --f-display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --f-script:"Mr Dafoe","Brush Script MT","Segoe Script",cursive;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --t-xs:.75rem; --t-sm:.875rem; --t-md:1.0625rem; --t-lg:1.25rem;
+  --t-h3:clamp(1.35rem,2.1vw,1.85rem);
+  --t-h2:clamp(2.7rem,7.2vw,6.4rem);
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D0F0A; --bg-alt:#151810; --fg:var(--cream); --muted:#A7AB9C; --line:rgba(244,242,234,.13);
+    --hl-fg:var(--lime); --hl-bg:none; --cyber-text:#8FB0FF;
+    --chip-bg:var(--cream); --chip-fg:var(--ink);
+    --header-bg:rgba(13,15,10,.86); --header-fg:var(--cream);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D0F0A; --bg-alt:#151810; --fg:var(--cream); --muted:#A7AB9C; --line:rgba(244,242,234,.13);
+  --hl-fg:var(--lime); --hl-bg:none; --cyber-text:#8FB0FF;
+  --chip-bg:var(--cream); --chip-fg:var(--ink);
+  --header-bg:rgba(13,15,10,.86); --header-fg:var(--cream);
+  color-scheme:dark;
+}
+
+/* ================= Base ================= */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:80px}
+html.menu-open{overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:var(--t-md);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+@supports (overflow:clip){body{overflow-x:clip}}
+img{max-width:100%;display:block}
+a{color:inherit}
+p{margin:0}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:4px}
+::selection{background:var(--lime);color:var(--black)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:16px;top:-60px;z-index:100;background:var(--lime);color:var(--black);padding:10px 16px;border-radius:999px;font-weight:700;text-decoration:none}
+.skip:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+
+.wrap{width:100%;max-width:1440px;margin-inline:auto;
+  padding-left:max(clamp(16px,4vw,56px),env(safe-area-inset-left,0px));
+  padding-right:max(clamp(16px,4vw,56px),env(safe-area-inset-right,0px))}
+
+/* Sections : claire par défaut, .band = sombre, .lime = fluo */
+.sec{position:relative;padding-block:clamp(84px,11vw,160px);background:var(--bg);color:var(--fg)}
+.band{--bg:var(--band-bg);--fg:var(--band-fg);--muted:var(--band-muted);--line:var(--band-line);
+  --hl-fg:var(--lime);--hl-bg:none;--cyber-text:var(--cyber);--chip-bg:var(--cream);--chip-fg:var(--ink);
+  background:var(--bg);color:var(--fg)}
+.lime .kicker::before{background:var(--black)}
+.lime{--bg:var(--lime);--fg:var(--black);--muted:#3B4220;--line:rgba(11,13,8,.22);
+  --hl-fg:var(--black);--hl-bg:none;--chip-bg:var(--black);--chip-fg:var(--lime);
+  background:var(--bg);color:var(--fg)}
+
+/* ================= Typo ================= */
+.display{font-family:var(--f-display);font-weight:850;font-stretch:76%;text-transform:uppercase;line-height:.9;letter-spacing:-.005em;margin:0;text-wrap:balance}
+.display em,.serif{font-family:var(--f-serif);font-style:normal;font-weight:400;font-stretch:100%;letter-spacing:-.015em;color:var(--hl-fg);background:var(--hl-bg);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.h2{font-size:var(--t-h2)}
+.mono{font-family:var(--f-mono)}
+.kicker{display:flex;align-items:center;gap:.7em;font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.06em;color:var(--muted);margin-bottom:1.4rem}
+.kicker::before{content:"";width:8px;height:8px;background:var(--lime);box-shadow:0 0 0 1px var(--line)}
+.sec-head{display:grid;gap:24px;margin-bottom:clamp(44px,6vw,84px)}
+.sec-head__intro{max-width:46ch;color:var(--muted)}
+@media (min-width:900px){.sec-head{grid-template-columns:1.5fr 1fr;align-items:end}}
+
+/* ================= Boutons pilule ================= */
+.pill{--pbg:var(--lime);--pfg:var(--black);display:inline-flex;align-items:center;gap:.8em;padding:.5em .5em .5em 1.3em;border-radius:999px;border:0;
+  background:var(--pbg);color:var(--pfg);font-family:var(--f-display);font-weight:800;font-stretch:88%;font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;cursor:pointer;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);white-space:nowrap}
+.pill:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(11,13,8,.5)}
+.pill__ic{display:grid;place-items:center;width:2.1em;height:2.1em;border-radius:50%;background:var(--pfg);color:var(--pbg);flex:none}
+.pill__ic svg{width:1.05em;height:1.05em;transition:transform .35s var(--ease)}
+.pill:hover .pill__ic svg{transform:rotate(45deg)}
+.pill:hover .pill__ic svg.no-rot{transform:translateY(2px)}
+.pill--dark{--pbg:var(--black);--pfg:var(--lime)}
+.pill--ghost{--pbg:transparent;--pfg:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.pill--ghost .pill__ic{background:var(--lime);color:var(--black)}
+.pill--sm{font-size:.7rem;padding:.4em .4em .4em 1em}
+.pill.is-placeholder{--pbg:transparent;--pfg:var(--muted);box-shadow:inset 0 0 0 1px var(--line);cursor:not-allowed;padding-right:1.2em}
+.pill.is-placeholder:hover{transform:none;box-shadow:inset 0 0 0 1px var(--line)}
+
+/* ================= Header ================= */
+.hdr{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);color:var(--band-fg);--acc:var(--lime);
+  transition:background-color .35s,color .35s,box-shadow .35s}
+.hdr.is-scrolled{background:var(--header-bg);color:var(--header-fg);--acc:var(--hl-fg);box-shadow:0 1px 0 var(--line);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+.hdr__in{display:flex;align-items:center;gap:18px;height:68px}
+.logo{display:flex;flex-direction:column;line-height:.84;text-decoration:none;font-family:var(--f-display);font-weight:850;font-stretch:74%;text-transform:uppercase;font-size:1.05rem;letter-spacing:.01em}
+.logo em{font-family:var(--f-serif);font-style:normal;font-weight:500;font-stretch:100%;color:var(--acc,var(--lime));font-size:1.02em;letter-spacing:.02em}
+.hdr__nav{display:none;margin-inline:auto;gap:clamp(14px,1.5vw,26px)}
+.hdr__nav a{position:relative;font-size:.72rem;font-weight:650;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding-block:6px}
+.hdr__nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.hdr__nav a:hover::after,.hdr__nav a[aria-current="true"]::after{transform:scaleX(1)}
+.hdr__tools{display:flex;align-items:center;gap:8px;margin-left:auto}
+.lang{display:inline-flex;align-items:center;padding:3px;border-radius:999px;box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 32%,transparent)}
+.lang button{border:0;background:none;color:inherit;font-family:var(--f-mono);font-size:.7rem;font-weight:600;padding:.42em .62em;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--lime);color:var(--black)}
+.lang span{opacity:.4;font-size:.7rem}
+.icon-btn{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:0;background:none;color:inherit;cursor:pointer;box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 32%,transparent);flex:none}
+.icon-btn svg{width:18px;height:18px}
+.hdr .pill--sm .pill__label-long{display:none}
+@media (min-width:560px){.hdr .pill--sm .pill__label-long{display:inline}.hdr .pill--sm .pill__label-short{display:none}}
+@media (min-width:1240px){.hdr__nav{display:flex}.hdr__tools{margin-left:0}.burger{display:none}}
+
+/* Menu mobile */
+.menu{position:fixed;inset:0;z-index:60;background:var(--band-bg);color:var(--band-fg);overflow-y:auto;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 28px);animation:menuIn .45s var(--ease)}
+.menu__top{display:flex;align-items:center;justify-content:space-between;height:68px}
+.menu .logo em{color:var(--lime)}
+.menu__links{list-style:none;margin:28px 0 36px;padding:0;display:grid;gap:4px}
+.menu__links a{font-family:var(--f-display);font-weight:850;font-stretch:76%;text-transform:uppercase;font-size:clamp(2.1rem,9vw,3.6rem);line-height:1.04;text-decoration:none;display:inline-block}
+.menu__links a:hover,.menu__links a:focus-visible{font-family:var(--f-serif);font-weight:400;font-stretch:100%;color:var(--lime)}
+.menu__foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+@keyframes menuIn{from{opacity:0;transform:translateY(-12px)}}
+
+/* ================= Hero ================= */
+.hero{position:relative;overflow:hidden;color:var(--band-fg);
+  background:
+    radial-gradient(42% 46% at 50% 46%, rgba(212,255,0,.13), transparent 70%),
+    radial-gradient(90% 60% at 50% 105%, #2E3722, transparent 65%),
+    linear-gradient(180deg,var(--hero-top) 0%,var(--band-bg) 100%);
+  padding-top:calc(92px + env(safe-area-inset-top,0px))}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background-image:linear-gradient(var(--band-line) 1px,transparent 1px),linear-gradient(90deg,var(--band-line) 1px,transparent 1px);
+  background-size:72px 72px;-webkit-mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 78%);mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 78%)}
+.hero__inner{position:relative;display:flex;flex-direction:column;gap:30px}
+.hero__text{position:relative;z-index:4;display:flex;flex-direction:column;gap:20px}
+.status{display:inline-flex;align-items:center;gap:.6em;font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.04em;color:var(--band-muted)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(212,255,0,.6);animation:ping 2.2s infinite}
+.hero__name{font-size:clamp(2.2rem,11.4vw,5.2rem);display:flex;flex-direction:column;line-height:.86}
+.hero__name .l2{font-family:var(--f-serif);font-weight:400;font-stretch:100%;color:var(--lime);letter-spacing:.01em;font-size:1.04em}
+.hero__role{font-size:clamp(1.05rem,1.6vw,1.3rem);font-weight:500;max-width:30ch;line-height:1.35;text-wrap:balance}
+.hero__loc{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--band-muted);letter-spacing:.04em}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:10px}
+.hero__ctas .pill--ghost{--pfg:var(--band-fg);box-shadow:inset 0 0 0 1px var(--band-line)}
+
+.hero__stage{position:relative;width:min(100%,520px);margin-inline:auto;aspect-ratio:890/900}
+.hero__ring{display:none}
+.hero__portrait{position:absolute;inset:0;margin:0;translate:0 var(--py,0px);animation:fadeIn 1.2s .15s var(--ease) both}
+.hero__portrait img{width:100%;height:100%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))}
+.hero__portrait::after{content:"";position:absolute;inset:auto 0 0;height:16%;background:linear-gradient(transparent,var(--band-bg))}
+
+/* Médaille TryHackMe */
+.medal{position:absolute;right:-4px;top:4%;z-index:5;display:block;width:clamp(104px,12vw,168px);aspect-ratio:1;border-radius:50%;text-decoration:none;translate:0 var(--py,0px)}
+.medal svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 18px 30px rgba(0,0,0,.45))}
+.medal__disc{fill:var(--lime)}
+.medal__inner{fill:none;stroke:var(--black);stroke-width:1.2}
+.medal__ring{transform-origin:100px 100px;animation:spin 26s linear infinite}
+.medal__ring text{font-family:var(--f-mono);font-size:13.5px;font-weight:600;letter-spacing:2.2px;fill:var(--black)}
+.medal__big{font-family:var(--f-serif);font-size:54px;fill:var(--black)}
+.medal__small{font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:1.5px;fill:var(--black)}
+
+/* Cartes collage du hero */
+.hero__cards{position:relative;z-index:3;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px;margin-top:-70px;padding-bottom:56px;width:min(100%,560px);margin-inline:auto}
+.hcard{display:block;text-decoration:none;rotate:var(--r,0deg);translate:0 var(--py,0px);transition:rotate .5s var(--ease)}
+.hcard:hover{rotate:0deg}
+.hcard__in{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:6px;box-shadow:var(--shadow);font-size:.78rem;line-height:1.35;animation:drop 1s var(--ease) both;animation-delay:var(--d,0s)}
+.hcard--ink .hcard__in{background:var(--black);color:var(--cream);box-shadow:var(--shadow),inset 0 0 0 1px var(--band-line)}
+.hcard--cream .hcard__in{background:var(--cream);color:var(--ink)}
+.hcard--lime .hcard__in{background:var(--lime);color:var(--black)}
+.hcard__k{display:flex;align-items:center;gap:.5em;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.hcard__t{font-family:var(--f-display);font-weight:850;font-stretch:78%;text-transform:uppercase;font-size:1.15rem;line-height:1}
+.hcard__log{margin:0;font-family:var(--f-mono);font-size:.64rem;line-height:1.6;white-space:pre;overflow:hidden}
+.hcard__log b{color:var(--cyber);font-weight:600}
+.hcard__log s{color:var(--lime);text-decoration:none}
+.cm{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;font-family:var(--f-mono);font-size:.62rem;text-align:center}
+.cm span{padding:8px 0;border-radius:3px;background:rgba(31,36,24,.1)}
+.cm span.ok{background:var(--ink);color:var(--lime)}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:.72rem}
+.check li::before{content:"✓";display:inline-block;width:1.3em;font-weight:700}
+.check li.nc::before{content:"✕"}
+.cipher{font-family:var(--f-mono);font-size:.64rem;word-break:break-all;background:var(--ink);color:var(--lime);padding:6px 8px;border-radius:3px}
+.hcard__foot{font-family:var(--f-mono);font-size:.62rem;opacity:.75}
+
+@media (min-width:1024px){
+  .hero{padding-top:calc(84px + env(safe-area-inset-top,0px))}
+  .hero__inner{display:block;min-height:clamp(680px,calc(100svh - 84px),940px)}
+  .hero__text{max-width:none;padding-top:18px}
+  .hero__name{font-size:clamp(4.4rem,7.3vw,8.4rem)}
+  .hero__role,.hero__loc,.hero__ctas,.status{max-width:34%}
+  .hero__stage{position:absolute;inset:0;width:auto;margin:0;aspect-ratio:auto;z-index:2;pointer-events:none}
+  .hero__ring{display:block;position:absolute;left:50%;top:13%;width:min(52vh,500px);aspect-ratio:1;border-radius:50%;translate:-50% 0;
+    box-shadow:inset 0 0 0 1px rgba(212,255,0,.32);animation:fadeIn 1.6s .2s var(--ease) both}
+  .hero__portrait{inset:auto auto 0 50%;height:86%;aspect-ratio:890/900;translate:-50% var(--py,0px);animation:rise 1.2s .15s var(--ease) both}
+  .medal{right:3%;top:5%;pointer-events:auto}
+  .hero__cards{position:absolute;inset:0;display:block;margin:0;width:auto;padding:0;pointer-events:none}
+  .hcard{position:absolute;width:clamp(190px,15vw,232px);pointer-events:auto}
+  .hcard--p1{left:clamp(16px,4vw,56px);bottom:9%}
+  .hcard--p2{left:23%;bottom:3%}
+  .hcard--p3{right:clamp(16px,3vw,48px);top:45%}
+  .hcard--p4{right:19%;bottom:5%}
+}
+@media (min-width:1024px) and (max-width:1279px){.hcard--p2{left:25%;bottom:2%}.hcard--p4{right:17%}}
+
+/* ================= Manifeste ================= */
+.manifesto{position:relative;padding-block:clamp(72px,11vw,160px);text-align:center}
+.manifesto .kicker{justify-content:center}
+.manifesto__text{font-size:clamp(2rem,5.6vw,5.5rem);max-width:1180px;margin-inline:auto;line-height:.94}
+.stats{list-style:none;margin:clamp(56px,8vw,110px) 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px;text-align:left}
+.stats li{border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:6px}
+.stats strong{font-family:var(--f-display);font-weight:850;font-stretch:76%;font-size:clamp(2.6rem,5.6vw,4.8rem);line-height:.9;color:var(--lime);font-variant-numeric:tabular-nums}
+.stats span{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+@media (min-width:900px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* Texte script décoratif qui déborde entre deux sections */
+.script{position:absolute;z-index:6;font-family:var(--f-script);font-weight:400;font-size:clamp(5.2rem,16vw,15rem);line-height:1;white-space:nowrap;
+  color:transparent;-webkit-text-stroke:2px var(--lime);rotate:-8deg;pointer-events:none;user-select:none}
+.script--about{top:0;right:2vw;translate:0 -56%}
+.script--projects{top:0;left:1vw;translate:0 -52%;rotate:-5deg}
+.script--footer{right:2%;bottom:2%;font-size:clamp(4rem,11vw,10rem);rotate:-7deg;z-index:1;opacity:.85}
+
+/* ================= About ================= */
+.about{display:grid;gap:48px}
+.about__lead{font-family:var(--f-serif);font-size:clamp(1.45rem,2.5vw,2.15rem);line-height:1.25;margin-top:30px;text-wrap:pretty}
+.about__body{display:grid;gap:18px;max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:36px 0 0;border-top:1px solid var(--line)}
+.facts div{padding:16px 12px 16px 0;border-bottom:1px solid var(--line);min-width:0}
+.facts dt{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.facts dd{margin:4px 0 0;font-weight:650;line-height:1.35}
+.edu-title{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:44px 0 12px}
+.edu{list-style:none;margin:0;padding:0;display:grid}
+.edu li{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:18px 0;border-bottom:1px solid var(--line)}
+.edu__when{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.edu__deg{font-family:var(--f-display);font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:1.2rem;line-height:1.1}
+.edu__school{font-family:var(--f-serif);font-size:1.05rem}
+.tag-live{display:inline-block;margin-left:.5em;font-family:var(--f-mono);font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:.2em .6em;border-radius:999px;background:var(--lime);color:var(--black);vertical-align:middle}
+@media (min-width:640px){.edu li{grid-template-columns:150px minmax(0,1fr);gap:18px}}
+@media (min-width:960px){.about{grid-template-columns:5fr 7fr;gap:clamp(56px,7vw,120px)}.about__right{padding-top:12px}}
+
+/* ================= Skills (cartes "Hall of Fame") ================= */
+.skills{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.skill{display:flex;flex-direction:column;gap:18px;padding:clamp(22px,2.4vw,30px);background:var(--band-card);border-radius:4px;box-shadow:inset 0 0 0 1px var(--line);
+  transition:translate .45s var(--ease),box-shadow .45s var(--ease),opacity .8s var(--ease)}
+.skill:hover{translate:0 -4px;box-shadow:inset 0 0 0 1px var(--lime)}
+.skill__head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.skill__tag{font-family:var(--f-mono);font-size:.7rem;font-weight:600;color:var(--lime);letter-spacing:.08em}
+.skill__count{font-family:var(--f-mono);font-size:.7rem;color:var(--muted)}
+.skill__title{font-family:var(--f-display);font-weight:850;font-stretch:78%;text-transform:uppercase;font-size:var(--t-h3);line-height:1;margin:0}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.8rem;padding:.3em .8em;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);line-height:1.5}
+.levels{list-style:none;margin:0;padding:0}
+.levels li{display:flex;justify-content:space-between;gap:12px;padding:.45em 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.levels li:last-child{border-bottom:0}
+.levels span{font-family:var(--f-mono);font-size:.72rem;color:var(--lime);text-transform:uppercase;letter-spacing:.04em;text-align:right}
+@media (min-width:640px){.skills{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){.skills{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ================= Marquee ================= */
+.marquee{overflow:hidden;display:flex;user-select:none}
+.marquee__track{display:flex;flex:none;align-items:center;gap:0;width:max-content;animation:marquee var(--dur,40s) linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+.marquee__item{display:inline-flex;align-items:center;gap:.8em;padding-right:.8em;white-space:nowrap}
+.ticker{background:var(--lime);color:var(--black);rotate:-2deg;margin:0 -3vw clamp(52px,7vw,96px);padding-block:14px}
+.ticker .marquee__item{font-family:var(--f-display);font-weight:850;font-stretch:76%;text-transform:uppercase;font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1}
+.ticker .marquee__item::after{content:"✦";font-size:.7em}
+
+/* ================= Tools (mur typographique) ================= */
+.tools{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.18em .28em;font-family:var(--f-display);font-weight:850;font-stretch:76%;text-transform:uppercase;font-size:clamp(1.75rem,5vw,4.4rem);line-height:1.02}
+.tools li{display:inline-flex;align-items:flex-start;transition:color .3s}
+.tools li:not(:last-child)::after{content:"/";font-family:var(--f-serif);font-weight:400;font-stretch:100%;color:var(--muted);margin-left:.28em}
+.tools__name{transition:background .3s,color .3s;padding-inline:.04em}
+.tools li:hover .tools__name{font-family:var(--f-serif);font-weight:400;font-stretch:100%;color:var(--hl-fg);background:var(--hl-bg)}
+.tools sup{font-family:var(--f-mono);font-weight:500;font-stretch:100%;font-size:max(.58rem,.17em);letter-spacing:.06em;color:var(--muted);margin:.25em 0 0 .3em;line-height:1;top:0}
+.tools-legend{margin-top:40px;font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted)}
+
+/* ================= Databases ================= */
+.dbs{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.db{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:190px;padding:26px;border-radius:4px;background:var(--band-card);box-shadow:inset 0 0 0 1px var(--line);transition:opacity .8s var(--ease),translate .8s var(--ease)}
+.db__name{font-family:var(--f-display);font-weight:850;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.6rem,2.6vw,2.3rem);line-height:.95;margin:0}
+.db__desc{color:var(--muted);font-size:.92rem}
+.db__k{font-family:var(--f-mono);font-size:.7rem;color:var(--lime);letter-spacing:.06em;text-transform:uppercase}
+.db.is-placeholder{background:transparent;box-shadow:none;outline:1px dashed var(--line);outline-offset:-1px}
+.db.is-placeholder .db__name{color:var(--muted)}
+@media (min-width:640px){.dbs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){.dbs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ================= Projects ================= */
+.projects{display:grid;gap:clamp(20px,2.6vw,34px);grid-template-columns:minmax(0,1fr)}
+.proj{position:relative;display:flex;flex-direction:column;gap:18px;padding:clamp(22px,3vw,40px);border-radius:6px;box-shadow:var(--shadow);rotate:var(--r,0deg);
+  transition:rotate .5s var(--ease),translate .8s var(--ease),opacity .8s var(--ease);min-width:0}
+.proj:hover{rotate:0deg}
+.proj__top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--f-mono);font-size:.72rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.proj__glyph{font-family:var(--f-display);font-weight:900;font-stretch:66%;font-size:clamp(4.2rem,8vw,7rem);line-height:.8;color:transparent;-webkit-text-stroke:1.5px var(--lime);margin:6px 0 4px}
+.proj__title{font-family:var(--f-display);font-weight:850;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:.95;margin:0}
+.proj__title em{font-family:var(--f-serif);font-style:normal;font-weight:400;font-stretch:100%;color:var(--lime)}
+.proj__desc{color:var(--muted);max-width:60ch}
+.proj__links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+.proj .chips .chip{font-size:.74rem}
+.pipe{list-style:none;margin:0;padding:0;counter-reset:step;display:grid}
+.pipe li{counter-increment:step;position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding-bottom:20px}
+.pipe li::before{content:counter(step,decimal-leading-zero);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--lime);color:var(--lime);font-family:var(--f-mono);font-size:.72rem;font-weight:600;background:var(--bg);position:relative;z-index:1}
+.pipe li:not(:last-child)::after{content:"";position:absolute;left:21px;top:44px;bottom:0;width:2px;background:linear-gradient(var(--lime),transparent)}
+.pipe li:last-child::before{background:var(--lime);color:var(--black)}
+.pipe b{display:block;font-family:var(--f-display);font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:1.15rem;line-height:1.1;padding-top:4px}
+.pipe small{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+@media (min-width:900px){
+  .projects{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .proj--featured{grid-column:1/-1;display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(30px,5vw,80px);align-items:start}
+  .proj--featured .proj__main{display:flex;flex-direction:column;gap:18px;height:100%}
+}
+
+/* ================= Experiences ================= */
+.xp{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.xp__item{display:grid;gap:18px;padding-block:clamp(30px,4.5vw,56px);border-bottom:1px solid var(--line);transition:opacity .8s var(--ease),translate .8s var(--ease)}
+.xp__date{font-family:var(--f-display);font-weight:850;font-stretch:76%;text-transform:uppercase;font-size:clamp(1.7rem,3.2vw,2.8rem);line-height:.95;color:var(--lime)}
+.xp__place{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);margin-top:8px;letter-spacing:.04em;text-transform:uppercase}
+.xp__role{font-family:var(--f-display);font-weight:850;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.4rem,2.4vw,2.1rem);line-height:1;margin:0}
+.xp__org{font-family:var(--f-serif);font-size:clamp(1.15rem,1.8vw,1.5rem);margin:6px 0 18px;color:var(--lime)}
+.xp ul.bul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px;max-width:68ch}
+.bul li{position:relative;padding-left:22px}
+.bul li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;background:var(--lime)}
+@media (min-width:900px){.xp__item{grid-template-columns:minmax(0,1fr) minmax(0,2.3fr);gap:48px}}
+
+/* ================= Certifications ================= */
+.certs{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+.cert{display:flex;flex-direction:column;gap:14px;min-height:250px;padding:26px;border-radius:6px;background:var(--bg-alt);box-shadow:inset 0 0 0 1px var(--line);transition:opacity .8s var(--ease),translate .8s var(--ease)}
+.cert__issuer{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.cert__name{font-family:var(--f-display);font-weight:850;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.4rem,2vw,1.75rem);line-height:1;margin:0}
+.cert__note{color:var(--muted);font-size:.92rem}
+.cert .pill{margin-top:auto;align-self:flex-start}
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:.55em;font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.45em .85em;border-radius:999px}
+.badge--progress{background:var(--lime);color:var(--black)}
+.badge--progress i{width:7px;height:7px;border-radius:50%;background:var(--black);animation:blink 1.4s infinite}
+.badge--prep{box-shadow:inset 0 0 0 1.5px var(--cyber-text);color:var(--cyber-text)}
+.badge--done{background:var(--chip-bg);color:var(--chip-fg)}
+.badge--rank{background:var(--black);color:var(--lime)}
+@media (min-width:640px){.certs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.certs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ================= Contact ================= */
+.contact{display:grid;gap:48px}
+.contact__title{font-size:clamp(3rem,9vw,8rem)}
+.contact__text{max-width:44ch;font-size:1.1rem;margin:26px 0 30px}
+.contact__ctas{display:flex;flex-wrap:wrap;gap:10px}
+.contacts{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.contacts li{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.contacts__label{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.contacts__value{display:block;font-family:var(--f-display);font-weight:800;font-stretch:84%;font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.15;overflow-wrap:anywhere;user-select:all}
+.contacts__actions{display:flex;gap:6px}
+.mini{display:inline-flex;align-items:center;gap:.4em;height:36px;padding:0 12px;border-radius:999px;border:0;background:var(--black);color:var(--lime);font-family:var(--f-mono);font-size:.7rem;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap}
+.mini svg{width:14px;height:14px}
+.mini--line{background:transparent;color:var(--black);box-shadow:inset 0 0 0 1px var(--line)}
+.mini.is-placeholder{opacity:.7;cursor:not-allowed}
+@media (min-width:960px){.contact{grid-template-columns:1.1fr 1fr;align-items:end;gap:80px}}
+
+/* ================= Footer ================= */
+.ftr{position:relative;overflow:hidden;background:var(--hero-top);color:var(--band-fg);padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+.ftr .marquee{border-block:1px solid var(--band-line);padding-block:18px}
+.ftr .marquee__item{font-family:var(--f-display);font-weight:850;font-stretch:76%;text-transform:uppercase;font-size:clamp(2rem,5vw,4.2rem);line-height:1}
+.ftr .marquee__item:nth-child(even){font-family:var(--f-serif);font-weight:400;font-stretch:100%;color:var(--lime)}
+.ftr .marquee__item::after{content:"";width:.28em;height:.28em;border-radius:50%;background:var(--lime);margin-left:.2em}
+.ftr__hero{position:relative;text-align:center;padding-block:clamp(90px,13vw,190px) clamp(60px,8vw,110px)}
+.ftr__title{position:relative;z-index:2;font-size:clamp(3rem,10vw,9.5rem)}
+.ftr__cta{position:relative;z-index:7;margin-top:38px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.ftr__grid{display:grid;gap:30px;grid-template-columns:repeat(2,minmax(0,1fr));padding-block:40px;border-top:1px solid var(--band-line)}
+.ftr__col h3{font-family:var(--f-mono);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--band-muted);margin:0 0 12px}
+.ftr__col ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ftr__col a{text-decoration:none;font-family:var(--f-display);font-weight:750;font-stretch:84%;text-transform:uppercase;font-size:1rem}
+.ftr__col a:hover{color:var(--lime)}
+.ftr__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:22px;border-top:1px solid var(--band-line);font-family:var(--f-mono);font-size:.7rem;color:var(--band-muted)}
+@media (min-width:900px){.ftr__grid{grid-template-columns:2fr 1fr 1fr 1fr}}
+
+/* ================= Animations ================= */
+@keyframes rise{from{opacity:0;translate:-50% 40px}}
+@keyframes up{from{opacity:0;transform:translateY(34px)}}
+@keyframes drop{from{opacity:0;transform:translateY(-26px) scale(.96)}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(212,255,0,.55)}80%,100%{box-shadow:0 0 0 10px rgba(212,255,0,0)}}
+@keyframes blink{50%{opacity:.25}}
+.intro{animation:up .95s var(--ease) both;animation-delay:var(--d,0s)}
+/* Révélation au scroll : uniquement pour les éléments sous la ligne de flottaison au chargement (ajouté par JS) */
+.will-reveal{opacity:0;translate:0 34px}
+.will-reveal.is-in{opacity:1;translate:0 0;transition:opacity .9s var(--ease),translate .9s var(--ease),rotate .5s var(--ease)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .marquee__track{animation:none!important}
+  .will-reveal{opacity:1;translate:0 0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
+
+<!-- ================= HEADER ================= -->
+<header class="hdr" id="hdr">
+  <div class="wrap hdr__in">
+    <a class="logo" href="#top" aria-label="ID-OUISSAADNE Ayoub">
+      <span>ID-OUISSAADNE</span><em>AYOUB</em>
+    </a>
+    <nav class="hdr__nav" id="nav" data-i18n-aria="nav.label" aria-label="Navigation principale">
+      <a href="#about" data-i18n="nav.about">À propos</a>
+      <a href="#skills" data-i18n="nav.skills">Compétences</a>
+      <a href="#tools" data-i18n="nav.tools">Outils</a>
+      <a href="#databases" data-i18n="nav.db">Bases de données</a>
+      <a href="#projects" data-i18n="nav.projects">Projets</a>
+      <a href="#experience" data-i18n="nav.exp">Expériences</a>
+      <a href="#certifications" data-i18n="nav.certs">Certifications</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="hdr__tools">
+      <div class="lang" role="group" data-i18n-aria="a11y.lang" aria-label="Langue">
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button><span aria-hidden="true">|</span><button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button type="button" class="icon-btn" id="themeBtn" data-i18n-aria="a11y.theme" aria-label="Changer de thème"></button>
+      <!-- CV : placez cv.pdf à la racine du dépôt -->
+      <a class="pill pill--sm" href="cv.pdf" download="CV-Ayoub-ID-OUISSAADNE.pdf">
+        <span class="pill__label-long" data-i18n="cv.long">Télécharger mon CV</span><span class="pill__label-short">CV</span>
+        <span class="pill__ic" data-ic="download"></span>
+      </a>
+      <button type="button" class="icon-btn burger" id="burger" aria-expanded="false" aria-controls="menu" data-i18n-aria="a11y.menu" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Menu plein écran (mobile / tablette) -->
+<div class="menu" id="menu" hidden>
+  <div class="wrap">
+    <div class="menu__top">
+      <a class="logo" href="#top" data-close><span>ID-OUISSAADNE</span><em>AYOUB</em></a>
+      <button type="button" class="icon-btn" id="menuClose" data-i18n-aria="a11y.close" aria-label="Fermer le menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      </button>
+    </div>
+    <ul class="menu__links" id="menuLinks"></ul>
+    <div class="menu__foot">
+      <a class="pill" href="cv.pdf" download="CV-Ayoub-ID-OUISSAADNE.pdf"><span data-i18n="cv.long">Télécharger mon CV</span><span class="pill__ic" data-ic="download"></span></a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ================= 1. HERO ================= -->
+<section class="hero band" id="top">
+  <div class="wrap hero__inner">
+    <div class="hero__text">
+      <p class="status intro" style="--d:.05s"><i aria-hidden="true"></i><span data-i18n="hero.status">Recherche un stage de fin d’études (PFE)</span></p>
+      <h1 class="display hero__name">
+        <span class="intro" style="--d:.12s">ID-OUISSAADNE</span>
+        <span class="l2 intro" style="--d:.24s">Ayoub</span>
+      </h1>
+      <p class="hero__role intro" style="--d:.36s" data-i18n="hero.role">Élève Ingénieur en Cybersécurité et Confiance Numérique</p>
+      <p class="hero__loc intro" style="--d:.42s">TAROUDANT · SOUSS-MASSA · 30.47°N 8.88°W</p>
+      <div class="hero__ctas intro" style="--d:.5s">
+        <a class="pill" href="#projects"><span data-i18n="hero.cta">Voir mes projets</span><span class="pill__ic" data-ic="arrow"></span></a>
+        <a class="pill pill--ghost" href="#contact"><span data-i18n="hero.cta2">Me contacter</span><span class="pill__ic" data-ic="arrow"></span></a>
+      </div>
+    </div>
+
+    <div class="hero__stage">
+      <div class="hero__ring" aria-hidden="true"></div>
+      <!-- [PHOTO] remplacez assets/photo.webp par votre portrait détouré (PNG/WebP transparent) -->
+      <figure class="hero__portrait" data-speed="-0.06">
+        <img src="assets/photo.webp" width="890" height="900" fetchpriority="high" data-i18n-alt="hero.photo" alt="Portrait d’Ayoub ID-OUISSAADNE">
+      </figure>
+      <a class="medal" href="#certifications" data-speed="0.18" data-i18n-aria="badge.label" aria-label="Top 1% TryHackMe au Maroc">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs><path id="medalPath" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+          <circle class="medal__disc" cx="100" cy="100" r="98"/>
+          <g class="medal__ring"><text><textPath href="#medalPath" textLength="470" lengthAdjust="spacing" data-i18n="badge.ring">TOP 1% TRYHACKME · MAROC · BLUE TEAM ·</textPath></text></g>
+          <circle class="medal__inner" cx="100" cy="100" r="56"/>
+          <text class="medal__small" x="100" y="80" text-anchor="middle">TOP</text>
+          <text class="medal__big" x="100" y="120" text-anchor="middle">1%</text>
+          <text class="medal__small" x="100" y="138" text-anchor="middle">THM · MA</text>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Collage de cartes autour du portrait -->
+    <div class="hero__cards">
+      <a class="hcard hcard--ink hcard--p1" href="#projects" style="--r:-5deg" data-speed="0.16">
+        <div class="hcard__in" style="--d:.7s">
+          <p class="hcard__k" data-i18n="hc.sentinel.k">Plateforme SOC</p>
+          <p class="hcard__t">Sentinel Copilot</p>
+<pre class="hcard__log"><b>ingest </b> opnsense → elastic
+<b>detect </b> mitre att&amp;ck
+<b>enrich </b> threat intel
+<b>triage </b> langgraph · ai
+<b>respond</b> <s>n8n soar ▸</s></pre>
+        </div>
+      </a>
+      <a class="hcard hcard--lime hcard--p2" href="#projects" style="--r:4deg" data-speed="0.08">
+        <div class="hcard__in" style="--d:.85s">
+          <p class="hcard__k" data-i18n="hc.iso.k">Audit des SI</p>
+          <p class="hcard__t">ISO 27001 / 27002</p>
+          <ul class="check">
+            <li data-i18n="hc.iso.1">Collecte de preuves</li>
+            <li data-i18n="hc.iso.2">Évaluation de conformité</li>
+            <li class="nc" data-i18n="hc.iso.3">Non-conformités détectées</li>
+          </ul>
+        </div>
+      </a>
+      <a class="hcard hcard--cream hcard--p3" href="#projects" style="--r:6deg" data-speed="0.22">
+        <div class="hcard__in" style="--d:1s">
+          <p class="hcard__k">Deep Learning</p>
+          <p class="hcard__t">Malware Detection</p>
+          <div class="cm" aria-hidden="true"><span class="ok">TP</span><span>FN</span><span>FP</span><span class="ok">TN</span></div>
+          <p class="hcard__foot">EMBER 2018 · 1M PE · LightGBM</p>
+        </div>
+      </a>
+      <a class="hcard hcard--cream hcard--p4" href="#projects" style="--r:-3deg" data-speed="0.12">
+        <div class="hcard__in" style="--d:1.15s">
+          <p class="hcard__k" data-i18n="hc.code.k">Cryptographie</p>
+          <p class="hcard__t">CoDe</p>
+          <p class="cipher">AES ▸ 9f2c·7a1e·b04d·e83c·51aa</p>
+          <p class="hcard__foot" data-i18n="hc.code.1">30+ algorithmes, en temps réel</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Manifeste -->
+<section class="manifesto band" aria-labelledby="manifesto-title">
+  <div class="wrap">
+    <p class="kicker reveal">~/manifesto</p>
+    <h2 class="display manifesto__text reveal" id="manifesto-title" data-i18n="man.text">DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.</h2>
+    <ul class="stats reveal" id="stats"></ul>
+  </div>
+</section>
+
+<!-- ================= 2. ABOUT ================= -->
+<section class="sec" id="about">
+  <div class="script script--about" aria-hidden="true">Blue Team</div>
+  <div class="wrap about">
+    <div class="about__left reveal">
+      <p class="kicker">~/about</p>
+      <h2 class="display h2" data-i18n="about.title">À <em>PROPOS</em></h2>
+      <p class="about__lead" data-i18n="about.lead">Passionné par la sécurité défensive et l’analyse SOC.</p>
+    </div>
+    <div class="about__right reveal">
+      <div class="about__body">
+        <p data-i18n="about.p1"></p>
+        <p data-i18n="about.p2"></p>
+      </div>
+      <dl class="facts" id="facts"></dl>
+      <p class="edu-title" data-i18n="about.edu">Formation</p>
+      <ol class="edu" id="education"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. SKILLS ================= -->
+<section class="sec band" id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker">~/skills</p>
+        <h2 class="display h2" data-i18n="skills.title">COMPÉTENCES <em>CLÉS</em></h2>
+      </div>
+      <p class="sec-head__intro" data-i18n="skills.intro"></p>
+    </div>
+    <div class="skills" id="skillsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= 4. TOOLS ================= -->
+<section class="sec" id="tools">
+  <div class="ticker marquee" aria-hidden="true"><div class="marquee__track" id="ticker" style="--dur:46s"></div></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker">~/tools</p>
+        <h2 class="display h2" data-i18n="tools.title">LA <em>BOÎTE</em> À OUTILS</h2>
+      </div>
+      <p class="sec-head__intro" data-i18n="tools.intro"></p>
+    </div>
+    <ul class="tools reveal" id="toolsWall"></ul>
+  </div>
+</section>
+
+<!-- ================= 5. DATABASES ================= -->
+<section class="sec band" id="databases">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker">~/databases</p>
+        <h2 class="display h2" data-i18n="db.title">BASES DE <em>DONNÉES</em></h2>
+      </div>
+      <p class="sec-head__intro" data-i18n="db.intro"></p>
+    </div>
+    <div class="dbs" id="dbGrid"></div>
+  </div>
+</section>
+
+<!-- ================= 6. PROJECTS ================= -->
+<section class="sec" id="projects">
+  <div class="script script--projects" aria-hidden="true">Detect &amp; Respond</div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker">~/projects</p>
+        <h2 class="display h2" data-i18n="projects.title">PROJETS <em>À LA UNE</em></h2>
+      </div>
+      <p class="sec-head__intro" data-i18n="projects.intro"></p>
+    </div>
+    <div class="projects" id="projectsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= 7. EXPERIENCES ================= -->
+<section class="sec band" id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker">~/experience</p>
+        <h2 class="display h2" data-i18n="exp.title">EXPÉRIENCES <em>TERRAIN</em></h2>
+      </div>
+      <p class="sec-head__intro" data-i18n="exp.intro"></p>
+    </div>
+    <ol class="xp" id="xpList"></ol>
+  </div>
+</section>
+
+<!-- ================= 8. CERTIFICATIONS ================= -->
+<section class="sec" id="certifications">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker">~/certifications</p>
+        <h2 class="display h2" data-i18n="certs.title">CERTIFS &amp; <em>PARCOURS</em></h2>
+      </div>
+      <p class="sec-head__intro" data-i18n="certs.intro"></p>
+    </div>
+    <div class="certs" id="certsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= 9. CONTACT ================= -->
+<section class="sec lime" id="contact">
+  <div class="wrap contact">
+    <div class="reveal">
+      <p class="kicker">~/contact</p>
+      <h2 class="display contact__title" data-i18n="contact.title">PARLONS <em>SÉCURITÉ.</em></h2>
+      <p class="contact__text" data-i18n="contact.text"></p>
+      <div class="contact__ctas">
+        <a class="pill pill--dark" href="cv.pdf" download="CV-Ayoub-ID-OUISSAADNE.pdf"><span data-i18n="cv.long">Télécharger mon CV</span><span class="pill__ic" data-ic="download"></span></a>
+        <a class="pill pill--dark" href="https://github.com/iday00b" target="_blank" rel="noopener"><span>GitHub</span><span class="pill__ic" data-ic="arrow"></span></a>
+      </div>
+    </div>
+    <ul class="contacts reveal" id="contactList"></ul>
+  </div>
+</section>
+</main>
+
+<!-- ================= 10. FOOTER ================= -->
+<footer class="ftr band">
+  <div class="marquee" aria-hidden="true"><div class="marquee__track" id="footMarquee" style="--dur:60s"></div></div>
+  <div class="wrap">
+    <div class="ftr__hero">
+      <div class="script script--footer" aria-hidden="true">Ayoub</div>
+      <p class="display ftr__title" data-i18n="footer.title">LET’S WORK <em>TOGETHER.</em></p>
+      <div class="ftr__cta">
+        <a class="pill" href="#contact"><span data-i18n="hero.cta2">Me contacter</span><span class="pill__ic" data-ic="arrow"></span></a>
+      </div>
+    </div>
+    <div class="ftr__grid">
+      <div class="ftr__col">
+        <a class="logo" href="#top"><span>ID-OUISSAADNE</span><em>AYOUB</em></a>
+        <p class="hero__loc" style="margin-top:14px" data-i18n="footer.based">Basé à Taroudant, Maroc · Ouvert au déplacement</p>
+      </div>
+      <div class="ftr__col"><h3 data-i18n="footer.nav">Navigation</h3><ul id="footNav"></ul></div>
+      <div class="ftr__col"><h3 data-i18n="footer.social">Réseaux</h3><ul id="footSocial"></ul></div>
+      <div class="ftr__col"><h3 data-i18n="footer.more">Plus</h3><ul>
+        <li><a href="cv.pdf" download="CV-Ayoub-ID-OUISSAADNE.pdf" data-i18n="cv.short2">CV (PDF)</a></li>
+        <li><a href="#top" data-i18n="footer.top">Haut de page ↑</a></li>
+      </ul></div>
+    </div>
+    <div class="ftr__bottom">
+      <span>© <span id="year">2026</span> Ayoub ID-OUISSAADNE</span>
+      <span data-i18n="footer.made">Conçu et codé à Taroudant · HTML, CSS, JS vanilla</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   DONNÉES : modifiez ces tableaux pour mettre à jour le site.
+   Un texte peut être une simple chaîne ("Python") ou un objet bilingue
+   { fr: "...", en: "..." }. Les liens "[À REMPLACER]" s'affichent en
+   bouton désactivé tant qu'ils ne sont pas renseignés.
+   ===================================================================== */
+const TODO = "[À REMPLACER]";
+/* false = les éléments [À REMPLACER] sont masqués sur le site public.
+   Passez à true pour les voir pendant que vous complétez les données. */
+const SHOW_TODO = false;
+
+/* Chiffres clés (sous le manifeste) */
+const STATS = [
+  { value: "Top 1%", label: { fr: "TryHackMe Maroc", en: "TryHackMe Morocco" } },
+  { value: { fr: "3e", en: "3rd" }, label: { fr: "année d’ingénieur", en: "engineering year" } },
+  { value: "2", label: { fr: "stages", en: "internships" } },
+  { value: "3", label: { fr: "projets majeurs", en: "major projects" } },
+];
+
+/* Infos rapides (section À propos) */
+const FACTS = [
+  { k: { fr: "Localisation", en: "Location" }, v: { fr: "Taroudant, Souss-Massa, Maroc", en: "Taroudant, Souss-Massa, Morocco" } },
+  { k: { fr: "Statut", en: "Status" }, v: { fr: "Recherche un stage PFE", en: "Seeking a final-year internship (PFE)" } },
+  { k: { fr: "École", en: "School" }, v: { fr: "ENSIASD Taroudant, 3e année", en: "ENSIASD Taroudant, 3rd year" } },
+  { k: { fr: "Spécialité", en: "Focus" }, v: { fr: "SOC · détection · réponse", en: "SOC · detection · response" } },
+];
+
+/* Formation */
+const EDUCATION = [
+  { when: { fr: "Oct 2024 – Juin 2027", en: "Oct 2024 – Jun 2027" }, live: true,
+    degree: { fr: "Diplôme d’Ingénieur d’État en Cybersécurité", en: "State Engineering Degree in Cybersecurity" },
+    school: "ENSIASD, Taroudant" },
+  { when: "2022 – 2024",
+    degree: { fr: "DEUST Mathématiques-Informatique-Physique", en: "DEUST Mathematics, Computer Science & Physics" },
+    school: "FST Settat" },
+];
+
+/* Compétences (cartes) */
+const SKILLS = [
+  { tag: "GRC", title: { fr: "Conformité & gestion des risques", en: "Compliance & risk management" },
+    items: ["ISO 27001", "ISO 27002", "ISO 27005", { fr: "RGPD", en: "GDPR" }] },
+  { tag: "SIEM", title: "SIEM", items: ["Wazuh", "Splunk"] },
+  { tag: "NET/SYS", title: { fr: "Réseaux & systèmes", en: "Networks & systems" },
+    items: [{ fr: "Administration Linux & Windows", en: "Linux & Windows administration" },
+            { fr: "Architecture réseau sécurisée", en: "Secure network architecture" },
+            { fr: "Virtualisation", en: "Virtualization" }] },
+  { tag: "CODE", title: { fr: "Programmation", en: "Programming" }, items: ["Python", "Bash"] },
+  { tag: "LAB", title: { fr: "Labs & pratique", en: "Labs & practice" },
+    items: ["TryHackMe", "LetsDefend", "Docker", { fr: "Cryptographie (DES, AES, RSA)", en: "Cryptography (DES, AES, RSA)" }] },
+  { tag: "LANG", title: { fr: "Langues", en: "Languages" }, levels: [
+    { name: { fr: "Arabe", en: "Arabic" }, level: { fr: "Natif", en: "Native" } },
+    { name: { fr: "Anglais", en: "English" }, level: { fr: "Professionnel", en: "Professional" } },
+    { name: { fr: "Français", en: "French" }, level: { fr: "Intermédiaire", en: "Intermediate" } },
+    { name: { fr: "Espagnol", en: "Spanish" }, level: { fr: "Débutant", en: "Beginner" } },
+  ] },
+];
+
+/* Outils (mur typographique + marquee du footer) */
+const TOOLS = [
+  { name: "Wazuh", cat: "SIEM" },
+  { name: "Splunk", cat: "SIEM" },
+  { name: "Elastic Stack", cat: "SIEM" },
+  { name: "Wireshark", cat: { fr: "Réseau", en: "Network" } },
+  { name: "Nmap", cat: "Recon" },
+  { name: "Metasploit", cat: { fr: "Offensif", en: "Offensive" } },
+  { name: "OPNsense", cat: "Firewall" },
+  { name: "FortiGate / FortiOS", cat: "Firewall" },
+  { name: "FortiClient", cat: "VPN" },
+  { name: "GNS3", cat: "Lab" },
+  { name: "VMware", cat: { fr: "Virtu", en: "Virt" } },
+  { name: "Hyper-V", cat: { fr: "Virtu", en: "Virt" } },
+  { name: "Docker", cat: "Containers" },
+  { name: "GLPI", cat: "ITSM" },
+  { name: "n8n", cat: "SOAR" },
+  { name: "LangGraph", cat: { fr: "IA", en: "AI" } },
+  { name: "LightGBM", cat: "ML" },
+  { name: "LIEF", cat: "PE" },
+  { name: "Git / GitHub", cat: "Dev" },
+];
+
+/* Mots-clés du bandeau défilant (section Outils) */
+const KEYWORDS = ["Blue Team", "SOC", "SIEM", "MITRE ATT&CK", "Threat Intelligence", "SOAR", "ISO 27001", { fr: "RGPD", en: "GDPR" }, "CTF", "Detection Engineering"];
+
+/* Bases de données — complétez ou supprimez les lignes [À REMPLACER] */
+const DATABASES = [
+  { name: "Elasticsearch", k: "Elastic Stack", desc: { fr: "Indexation et recherche de logs de sécurité, base du SIEM de Sentinel Copilot.", en: "Indexing and searching security logs, the SIEM backbone of Sentinel Copilot." } },
+  { name: "MySQL", placeholder: true },
+  { name: "PostgreSQL", placeholder: true },
+  { name: "MongoDB", placeholder: true },
+];
+
+/* Projets — "featured: true" = grande carte avec pipeline */
+const PROJECTS = [
+  {
+    featured: true, glyph: "SOC",
+    title: "Sentinel <em>Copilot</em>",
+    meta: { fr: "P. LUNE SARL · 2026", en: "P. LUNE SARL · 2026" },
+    desc: {
+      fr: "Plateforme SOC complète, de la détection à la réponse automatisée : ingestion de télémétrie, détection alignée MITRE ATT&CK, enrichissement Threat Intelligence, investigation assistée par IA et workflows SOAR.",
+      en: "End-to-end SOC platform, from detection to automated response: telemetry ingestion, MITRE ATT&CK-aligned detection, threat intelligence enrichment, AI-assisted investigation and SOAR workflows."
+    },
+    tags: ["OPNsense", "Elastic Stack", "MITRE ATT&CK", "Threat Intel", "LangGraph", "n8n"],
+    pipeline: [
+      { step: { fr: "Ingestion", en: "Ingest" }, tool: "OPNsense → Elastic Stack" },
+      { step: { fr: "Détection", en: "Detect" }, tool: "MITRE ATT&CK" },
+      { step: { fr: "Enrichissement", en: "Enrich" }, tool: "Threat Intelligence" },
+      { step: { fr: "Investigation IA", en: "AI investigation" }, tool: "LangGraph" },
+      { step: { fr: "Réponse SOAR", en: "SOAR response" }, tool: "n8n" },
+    ],
+    links: [{ label: "GitHub", href: TODO }, { label: "Demo", href: TODO }],
+  },
+  {
+    glyph: "PE", r: -1.4,
+    title: "Malware <em>Detection</em>",
+    meta: { fr: "Deep Learning · Fév – Mar 2026", en: "Deep Learning · Feb – Mar 2026" },
+    desc: {
+      fr: "Classificateur binaire de malwares sur fichiers PE. Dataset EMBER 2018 (1M fichiers), extraction de features avec LIEF, comparaison LightGBM / Random Forest / Gradient Boosting, évaluation Precision, Recall, F1 et matrice de confusion.",
+      en: "Binary malware classifier for PE files. EMBER 2018 dataset (1M files), feature extraction with LIEF, LightGBM vs Random Forest vs Gradient Boosting, evaluated with precision, recall, F1 and a confusion matrix."
+    },
+    tags: ["Python", "LIEF", "LightGBM", "EMBER 2018"],
+    links: [{ label: "GitHub", href: TODO }],
+  },
+  {
+    glyph: "ISO", r: 1,
+    title: { fr: "Simulateur d’<em>audit</em> des SI", en: "IS <em>audit</em> simulator" },
+    meta: { fr: "ISO 2700x · Mar – Avr 2026", en: "ISO 2700x · Mar – Apr 2026" },
+    desc: {
+      fr: "Application web qui simule un audit ISO 27001/27002 : collecte de preuves, évaluation de la conformité et détection des non-conformités.",
+      en: "Web app that simulates an ISO 27001/27002 audit: evidence collection, compliance assessment and detection of non-conformities."
+    },
+    tags: ["ISO 27001", "ISO 27002", "GRC", "Web"],
+    links: [{ label: "GitHub", href: TODO }, { label: "Demo", href: TODO }],
+  },
+  {
+    glyph: "AES", r: -0.7,
+    title: "Co<em>De</em>",
+    meta: { fr: "Cryptographie · Oct 2024", en: "Cryptography · Oct 2024" },
+    desc: {
+      fr: "Application web de chiffrement, déchiffrement et encodage en temps réel, avec plus de 30 algorithmes.",
+      en: "Web app for real-time encryption, decryption and encoding, with 30+ algorithms."
+    },
+    tags: ["AES", "RSA", "DES", "Web"],
+    links: [{ label: "GitHub", href: TODO }, { label: "Demo", href: "https://code-decode-lab.vercel.app" }],
+  },
+];
+
+/* Expériences (la plus récente en premier) */
+const EXPERIENCES = [
+  {
+    date: { fr: "Juil – Août 2026", en: "Jul – Aug 2026" },
+    place: { fr: "Stage", en: "Internship" },
+    role: { fr: "Stagiaire Cybersécurité & Ingénierie SOC", en: "Cybersecurity & SOC Engineering Intern" },
+    org: "P. LUNE SARL",
+    bullets: {
+      fr: ["Conception de Sentinel Copilot, plateforme SOC de la détection à la réponse automatisée.",
+           "Ingestion de télémétrie OPNsense dans l’Elastic Stack et règles de détection alignées MITRE ATT&CK.",
+           "Enrichissement Threat Intelligence, investigation assistée par IA (LangGraph) et workflows SOAR (n8n)."],
+      en: ["Designed Sentinel Copilot, a SOC platform from detection to automated response.",
+           "Ingested OPNsense telemetry into the Elastic Stack and wrote MITRE ATT&CK-aligned detections.",
+           "Threat intelligence enrichment, AI-assisted investigation (LangGraph) and SOAR workflows (n8n)."]
+    },
+    tags: ["Elastic Stack", "OPNsense", "MITRE ATT&CK", "LangGraph", "n8n"],
+  },
+  {
+    date: { fr: "Juil 2025", en: "Jul 2025" },
+    place: { fr: "Stage · Taroudant", en: "Internship · Taroudant" },
+    role: { fr: "Stagiaire Administration Systèmes & Support Informatique", en: "Systems Administration & IT Support Intern" },
+    org: { fr: "Province de Taroudant", en: "Province of Taroudant" },
+    bullets: {
+      fr: ["Maquette d’un réseau sécurisé FortiGate sous GNS3 et VMware.",
+           "VPN IPsec site-à-site et VPN d’accès distant SSL/IPsec avec FortiClient.",
+           "Règles de filtrage, NAT/PAT et routage.",
+           "Support utilisateurs, gestion des tickets GLPI et virtualisation Hyper-V."],
+      en: ["Built a secure FortiGate network lab in GNS3 and VMware.",
+           "Site-to-site IPsec VPN and SSL/IPsec remote-access VPN with FortiClient.",
+           "Firewall policies, NAT/PAT and routing.",
+           "User support, GLPI ticket handling and Hyper-V virtualization."]
+    },
+    tags: ["FortiGate", "GNS3", "VMware", "FortiClient", "GLPI", "Hyper-V"],
+  },
+];
+
+/* Certifications — status : "progress" (en cours), "prep" (en préparation), "done", "rank" */
+const CERTIFICATIONS = [
+  { name: "SOC Analyst Path", issuer: "LetsDefend", status: "progress",
+    note: { fr: "Triage d’alertes, analyse de logs et investigation dans un SOC simulé.", en: "Alert triage, log analysis and investigation in a simulated SOC." } },
+  { name: "CCD L1", issuer: "CyberDefenders", status: "prep",
+    note: { fr: "Certified CyberDefender, niveau 1 : blue team, DFIR et threat hunting.", en: "Certified CyberDefender level 1: blue team, DFIR and threat hunting." } },
+  { name: "CompTIA Security+ (SY0-701)", issuer: "CompTIA", status: "done",
+    note: { fr: "Bootcamp de préparation à l’examen SY0-701.", en: "Preparation bootcamp for the SY0-701 exam." } },
+  { name: "TryHackMe", issuer: { fr: "Classement national", en: "National ranking" }, status: "rank",
+    note: { fr: "Top 1% des joueurs au Maroc.", en: "Top 1% of players in Morocco." },
+    link: { label: { fr: "Voir le profil", en: "View profile" }, href: TODO } },
+];
+
+/* Contact */
+const CONTACTS = [
+  { label: "Email", value: "ayoubidouissaadn8@gmail.com", href: "mailto:ayoubidouissaadn8@gmail.com", copy: true },
+  { label: "WhatsApp", value: "+212 646219038", href: "https://wa.me/212646219038" },
+  { label: { fr: "Téléphone", en: "Phone" }, value: "+212 646219038", href: "tel:+212646219038", copy: true },
+  { label: "GitHub", value: "github.com/iday00b", href: "https://github.com/iday00b" },
+  { label: "LinkedIn", value: TODO, href: TODO },
+];
+
+/* =====================================================================
+   TRADUCTIONS (data-i18n). Le HTML est autorisé (<em> = mot en serif fluo).
+   ===================================================================== */
+const I18N = {
+  fr: {
+    "meta.title": "Ayoub ID-OUISSAADNE · Ingénieur SOC & Cybersécurité en devenir",
+    "meta.desc": "Portfolio d’Ayoub ID-OUISSAADNE, élève ingénieur en cybersécurité (ENSIASD). SOC, SIEM, détection et réponse. Top 1% TryHackMe Maroc. Recherche un stage PFE.",
+    "skip": "Aller au contenu",
+    "nav.label": "Navigation principale",
+    "nav.about": "À propos", "nav.skills": "Compétences", "nav.tools": "Outils", "nav.db": "Bases de données",
+    "nav.projects": "Projets", "nav.exp": "Expériences", "nav.certs": "Certifications", "nav.contact": "Contact",
+    "a11y.theme": "Basculer entre thème clair et sombre", "a11y.menu": "Ouvrir le menu", "a11y.close": "Fermer le menu", "a11y.lang": "Choisir la langue",
+    "cv.long": "Télécharger mon CV", "cv.short2": "CV (PDF)",
+    "hero.status": "Recherche un stage de fin d’études (PFE)",
+    "hero.role": "Élève Ingénieur en Cybersécurité et Confiance Numérique",
+    "hero.cta": "Voir mes projets", "hero.cta2": "Me contacter",
+    "hero.photo": "Portrait d’Ayoub ID-OUISSAADNE",
+    "badge.ring": "TOP 1% TRYHACKME · MAROC · BLUE TEAM ·",
+    "badge.label": "Top 1% TryHackMe au Maroc",
+    "hc.sentinel.k": "Plateforme SOC",
+    "hc.iso.k": "Audit des SI", "hc.iso.1": "Collecte de preuves", "hc.iso.2": "Évaluation de conformité", "hc.iso.3": "Non-conformités détectées",
+    "hc.code.k": "Cryptographie", "hc.code.1": "30+ algorithmes, en temps réel",
+    "man.text": "DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.",
+    "about.title": "À <em>PROPOS</em>",
+    "about.lead": "Passionné par la sécurité défensive et l’analyse SOC.",
+    "about.p1": "Je suis élève ingénieur en 3e année à l’ENSIASD de Taroudant, en cybersécurité et confiance numérique. Je joue activement à des CTF orientés défense (CRTF) et je suis classé dans le Top 1% TryHackMe au Maroc.",
+    "about.p2": "Je prépare les certifications CCD L1 et SOC Analyst (LetsDefend). Je cherche un stage de fin d’études (PFE) pour mettre en pratique la détection, l’investigation et la réponse aux incidents dans une vraie équipe SOC.",
+    "about.edu": "Formation",
+    "skills.title": "COMPÉTENCES <em>CLÉS</em>",
+    "skills.intro": "De la conformité ISO 2700x à la détection dans un SIEM : les compétences que j’utilise en stage, en projet et en CTF.",
+    "tools.title": "LA <em>BOÎTE</em> À OUTILS",
+    "tools.intro": "Les outils que j’ai réellement manipulés, en lab, en stage ou en projet. La catégorie est indiquée en exposant.",
+    "db.title": "BASES DE <em>DONNÉES</em>",
+    "db.intro": "Stockage et recherche de données, côté sécurité comme côté applicatif.",
+    "db.todo": "À compléter",
+    "projects.title": "PROJETS <em>À LA UNE</em>",
+    "projects.intro": "Détection, machine learning, audit et cryptographie. Chaque projet répond à un vrai problème de sécurité.",
+    "exp.title": "EXPÉRIENCES <em>TERRAIN</em>",
+    "exp.intro": "Deux stages, un côté SOC et un côté infrastructure.",
+    "certs.title": "CERTIFS &amp; <em>PARCOURS</em>",
+    "certs.intro": "Les parcours en cours sont indiqués clairement.",
+    "status.progress": "En cours", "status.prep": "En préparation", "status.done": "Bootcamp suivi", "status.rank": "Classement",
+    "contact.title": "PARLONS <em>SÉCURITÉ.</em>",
+    "contact.text": "Je cherche un stage de fin d’études (PFE) en SOC, détection ou sécurité défensive. Écrivez-moi par e-mail ou WhatsApp, je réponds rapidement.",
+    "contact.copy": "Copier", "contact.copied": "Copié", "contact.open": "Ouvrir",
+    "footer.title": "TRAVAILLONS <em>ENSEMBLE.</em>",
+    "footer.based": "Basé à Taroudant, Maroc · Mobile pour un stage",
+    "footer.nav": "Navigation", "footer.social": "Réseaux", "footer.more": "Plus", "footer.top": "Haut de page ↑",
+    "footer.made": "Conçu et codé à Taroudant · HTML, CSS, JS vanilla",
+    "todo": "À REMPLACER",
+  },
+  en: {
+    "meta.title": "Ayoub ID-OUISSAADNE · SOC & Cybersecurity Engineer in the making",
+    "meta.desc": "Portfolio of Ayoub ID-OUISSAADNE, cybersecurity engineering student (ENSIASD). SOC, SIEM, detection and response. Top 1% TryHackMe Morocco. Looking for a final-year internship.",
+    "skip": "Skip to content",
+    "nav.label": "Main navigation",
+    "nav.about": "About", "nav.skills": "Skills", "nav.tools": "Tools", "nav.db": "Databases",
+    "nav.projects": "Projects", "nav.exp": "Experience", "nav.certs": "Certifications", "nav.contact": "Contact",
+    "a11y.theme": "Toggle light and dark theme", "a11y.menu": "Open menu", "a11y.close": "Close menu", "a11y.lang": "Choose language",
+    "cv.long": "Download my CV", "cv.short2": "CV (PDF)",
+    "hero.status": "Looking for a final-year internship (PFE)",
+    "hero.role": "Cybersecurity & Digital Trust Engineering Student",
+    "hero.cta": "See my projects", "hero.cta2": "Get in touch",
+    "hero.photo": "Portrait of Ayoub ID-OUISSAADNE",
+    "badge.ring": "TOP 1% TRYHACKME · MOROCCO · BLUE TEAM ·",
+    "badge.label": "Top 1% on TryHackMe in Morocco",
+    "hc.sentinel.k": "SOC platform",
+    "hc.iso.k": "IS audit", "hc.iso.1": "Evidence collection", "hc.iso.2": "Compliance assessment", "hc.iso.3": "Non-conformities found",
+    "hc.code.k": "Cryptography", "hc.code.1": "30+ algorithms, in real time",
+    "man.text": "<em>DEFENDING</em> SYSTEMS, <em>HUNTING</em> THREATS, BUILDING <em>TRUST</em>. SOC &amp; CYBERSECURITY ENGINEER <em>IN THE MAKING</em>.",
+    "about.title": "ABOUT <em>ME</em>",
+    "about.lead": "Driven by defensive security and SOC analysis.",
+    "about.p1": "I’m a third-year cybersecurity and digital trust engineering student at ENSIASD in Taroudant. I play defense-oriented CTFs (CRTF) and rank in the top 1% on TryHackMe in Morocco.",
+    "about.p2": "I’m preparing the CCD L1 and LetsDefend SOC Analyst certifications, and I’m looking for a final-year internship (PFE) where I can practice detection, investigation and incident response inside a real SOC team.",
+    "about.edu": "Education",
+    "skills.title": "CORE <em>SKILLS</em>",
+    "skills.intro": "From ISO 2700x compliance to detection in a SIEM: the skills I use in internships, projects and CTFs.",
+    "tools.title": "THE <em>TOOLKIT</em>",
+    "tools.intro": "Tools I have actually used, in labs, internships or projects. The category sits in superscript.",
+    "db.title": "<em>DATA</em>BASES",
+    "db.intro": "Storing and searching data, for security tooling and for applications.",
+    "db.todo": "To be completed",
+    "projects.title": "PROJECTS <em>HALL OF FAME</em>",
+    "projects.intro": "Detection, machine learning, audit and cryptography. Each project tackles a real security problem.",
+    "exp.title": "FIELD <em>EXPERIENCE</em>",
+    "exp.intro": "Two internships: one on the SOC side, one on the infrastructure side.",
+    "certs.title": "CERTS &amp; <em>TRAINING</em>",
+    "certs.intro": "Ongoing paths are clearly marked.",
+    "status.progress": "In progress", "status.prep": "In preparation", "status.done": "Bootcamp completed", "status.rank": "Ranking",
+    "contact.title": "LET’S <em>TALK.</em>",
+    "contact.text": "I’m looking for a final-year internship (PFE) in SOC, detection or defensive security. Email me or message me on WhatsApp, I reply quickly.",
+    "contact.copy": "Copy", "contact.copied": "Copied", "contact.open": "Open",
+    "footer.title": "LET’S WORK <em>TOGETHER.</em>",
+    "footer.based": "Based in Taroudant, Morocco · Open to relocate for an internship",
+    "footer.nav": "Navigation", "footer.social": "Social", "footer.more": "More", "footer.top": "Back to top ↑",
+    "footer.made": "Designed and coded in Taroudant · HTML, CSS, vanilla JS",
+    "todo": "TO REPLACE",
+  },
+};
+
+/* =====================================================================
+   LOGIQUE
+   ===================================================================== */
+const ICONS = {
+  arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  download: '<svg class="no-rot" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  copy: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  sun: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  moon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+};
+
+const root = document.documentElement;
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+
+let lang = (() => {
+  const s = store.get("lang");
+  if (s === "fr" || s === "en") return s;
+  return (navigator.language || "fr").toLowerCase().startsWith("en") ? "en" : "fr";
+})();
+
+/* Texte bilingue -> chaîne dans la langue courante */
+const L = (v) => (v && typeof v === "object" && !Array.isArray(v)) ? (v[lang] ?? v.fr) : (v ?? "");
+const t = (k) => I18N[lang][k] ?? I18N.fr[k] ?? k;
+const isTodo = (href) => !href || href.includes("À REMPLACER");
+const ext = (href) => /^https?:/.test(href) ? ' target="_blank" rel="noopener"' : "";
+
+/* Lien ou bouton désactivé si [À REMPLACER] */
+function linkPill(label, href) {
+  if (isTodo(href)) return SHOW_TODO ? `<span class="pill pill--sm is-placeholder" title="${TODO}">${L(label)} · ${TODO}</span>` : "";
+  return `<a class="pill pill--sm" href="${href}"${ext(href)}><span>${L(label)}</span><span class="pill__ic">${ICONS.arrow}</span></a>`;
+}
+const chips = (arr) => `<ul class="chips">${arr.map(x => `<li class="chip">${L(x)}</li>`).join("")}</ul>`;
+
+/* ---------- Rendus ---------- */
+function renderStats() {
+  $("#stats").innerHTML = STATS.map(s => `<li><strong>${L(s.value)}</strong><span>${L(s.label)}</span></li>`).join("");
+}
+function renderAbout() {
+  $("#facts").innerHTML = FACTS.map(f => `<div><dt>${L(f.k)}</dt><dd>${L(f.v)}</dd></div>`).join("");
+  $("#education").innerHTML = EDUCATION.map(e => `
+    <li><span class="edu__when">${L(e.when)}</span>
+      <div><div class="edu__deg">${L(e.degree)}${e.live ? `<span class="tag-live">${t("status.progress")}</span>` : ""}</div>
+      <div class="edu__school">${L(e.school)}</div></div></li>`).join("");
+}
+function renderSkills() {
+  $("#skillsGrid").innerHTML = SKILLS.map(s => {
+    const n = (s.items || s.levels).length;
+    const body = s.levels
+      ? `<ul class="levels">${s.levels.map(l => `<li>${L(l.name)}<span>${L(l.level)}</span></li>`).join("")}</ul>`
+      : chips(s.items);
+    return `<article class="skill reveal">
+      <div class="skill__head"><span class="skill__tag">${s.tag}</span><span class="skill__count">${String(n).padStart(2, "0")}</span></div>
+      <h3 class="skill__title">${L(s.title)}</h3>${body}</article>`;
+  }).join("");
+}
+function marqueeHTML(items) {
+  const one = items.map(x => `<span class="marquee__item">${L(x)}</span>`).join("");
+  return one + one; /* contenu doublé pour une boucle sans couture */
+}
+function renderTools() {
+  $("#toolsWall").innerHTML = TOOLS.map(x => `<li><span class="tools__name">${x.name}</span><sup>${L(x.cat)}</sup></li>`).join("");
+  $("#ticker").innerHTML = marqueeHTML(KEYWORDS);
+  $("#footMarquee").innerHTML = marqueeHTML(TOOLS.map(x => x.name));
+}
+function renderDB() {
+  $("#dbGrid").innerHTML = DATABASES.filter(d => SHOW_TODO || !d.placeholder).map(d => d.placeholder
+    ? `<article class="db is-placeholder reveal"><span class="db__k">${TODO}</span><div><h3 class="db__name">${d.name}</h3><p class="db__desc">${t("db.todo")}</p></div></article>`
+    : `<article class="db reveal"><span class="db__k">${L(d.k)}</span><div><h3 class="db__name">${d.name}</h3><p class="db__desc">${L(d.desc)}</p></div></article>`
+  ).join("");
+}
+function renderProjects() {
+  $("#projectsGrid").innerHTML = PROJECTS.map(p => {
+    const main = `
+      <div class="proj__top"><span>${L(p.meta)}</span></div>
+      <div class="proj__glyph" aria-hidden="true">${p.glyph}</div>
+      <h3 class="proj__title">${L(p.title)}</h3>
+      <p class="proj__desc">${L(p.desc)}</p>
+      ${chips(p.tags)}
+      <div class="proj__links">${p.links.map(l => linkPill(l.label, l.href)).join("")}</div>`;
+    if (p.featured) {
+      return `<article class="proj proj--featured band reveal">
+        <div class="proj__main">${main}</div>
+        <ol class="pipe">${p.pipeline.map(s => `<li><div><b>${L(s.step)}</b><small>${s.tool}</small></div></li>`).join("")}</ol>
+      </article>`;
+    }
+    return `<article class="proj band reveal" style="--r:${p.r || 0}deg">${main}</article>`;
+  }).join("");
+}
+function renderXP() {
+  $("#xpList").innerHTML = EXPERIENCES.map(x => `
+    <li class="xp__item reveal">
+      <div><div class="xp__date">${L(x.date)}</div><div class="xp__place">${L(x.place)}</div></div>
+      <div>
+        <h3 class="xp__role">${L(x.role)}</h3>
+        <p class="xp__org">${L(x.org)}</p>
+        <ul class="bul">${L(x.bullets).map(b => `<li>${b}</li>`).join("")}</ul>
+        ${chips(x.tags)}
+      </div>
+    </li>`).join("");
+}
+function renderCerts() {
+  $("#certsGrid").innerHTML = CERTIFICATIONS.map(c => `
+    <article class="cert reveal">
+      <span class="badge badge--${c.status}">${c.status === "progress" ? "<i aria-hidden=\"true\"></i>" : ""}${t("status." + c.status)}</span>
+      <div><p class="cert__issuer">${L(c.issuer)}</p><h3 class="cert__name">${c.name}</h3></div>
+      <p class="cert__note">${L(c.note)}</p>
+      ${c.link ? linkPill(c.link.label, c.link.href) : ""}
+    </article>`).join("");
+}
+function renderContact() {
+  $("#contactList").innerHTML = CONTACTS.filter(c => SHOW_TODO || !isTodo(c.href)).map((c, i) => {
+    const todo = isTodo(c.href);
+    const open = todo
+      ? `<span class="mini mini--line is-placeholder">${t("todo")}</span>`
+      : `<a class="mini mini--line" href="${c.href}"${ext(c.href)}>${t("contact.open")} ${ICONS.arrow}</a>`;
+    const copy = c.copy ? `<button type="button" class="mini" data-copy="${i}">${ICONS.copy}<span>${t("contact.copy")}</span></button>` : "";
+    return `<li><div><span class="contacts__label">${L(c.label)}</span><span class="contacts__value" id="cv-${i}">${c.value}</span></div>
+      <div class="contacts__actions">${copy}${open}</div></li>`;
+  }).join("");
+  $("#footSocial").innerHTML = CONTACTS.filter(c => !isTodo(c.href)).map(c => `<li><a href="${c.href}"${ext(c.href)}>${L(c.label)}</a></li>`).join("")
+    + CONTACTS.filter(c => SHOW_TODO && isTodo(c.href)).map(c => `<li><span class="hero__loc">${L(c.label)} · ${TODO}</span></li>`).join("");
+}
+function renderNav() {
+  const links = $$("#nav a").map(a => `<li><a href="${a.getAttribute("href")}" data-close>${a.textContent}</a></li>`).join("");
+  $("#menuLinks").innerHTML = links;
+  $("#footNav").innerHTML = links.replaceAll(" data-close", "");
+}
+
+/* ---------- i18n ---------- */
+function applyLang(next) {
+  lang = next;
+  root.lang = lang;
+  store.set("lang", lang);
+  $$("[data-i18n]").forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+  $$("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  $$("[data-i18n-alt]").forEach(el => el.setAttribute("alt", t(el.dataset.i18nAlt)));
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  document.title = t("meta.title");
+  $('meta[name="description"]').setAttribute("content", t("meta.desc"));
+  renderStats(); renderAbout(); renderSkills(); renderTools(); renderDB();
+  renderProjects(); renderXP(); renderCerts(); renderContact(); renderNav();
+  $$("[data-ic]").forEach(el => { el.innerHTML = ICONS[el.dataset.ic]; });
+}
+$$(".lang button").forEach(b => b.addEventListener("click", () => applyLang(b.dataset.lang)));
+
+/* ---------- Thème clair / sombre ---------- */
+const mqDark = matchMedia("(prefers-color-scheme: dark)");
+const currentTheme = () => root.dataset.theme || (mqDark.matches ? "dark" : "light");
+function paintThemeBtn() { $("#themeBtn").innerHTML = currentTheme() === "dark" ? ICONS.sun : ICONS.moon; }
+$("#themeBtn").addEventListener("click", () => {
+  const next = currentTheme() === "dark" ? "light" : "dark";
+  root.dataset.theme = next;
+  store.set("theme", next);
+  paintThemeBtn();
+});
+mqDark.addEventListener?.("change", paintThemeBtn);
+
+/* ---------- Menu burger ---------- */
+const menu = $("#menu"), burger = $("#burger");
+function setMenu(open) {
+  menu.hidden = !open;
+  burger.setAttribute("aria-expanded", String(open));
+  root.classList.toggle("menu-open", open);
+  if (open) $("#menuLinks a")?.focus(); else burger.focus();
+}
+burger.addEventListener("click", () => setMenu(true));
+$("#menuClose").addEventListener("click", () => setMenu(false));
+menu.addEventListener("click", e => { if (e.target.closest("[data-close]")) setMenu(false); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !menu.hidden) setMenu(false); });
+
+/* ---------- Copier email / téléphone ---------- */
+document.addEventListener("click", async e => {
+  const btn = e.target.closest("[data-copy]");
+  if (!btn) return;
+  const valueEl = $("#cv-" + btn.dataset.copy);
+  const label = btn.querySelector("span");
+  try {
+    await navigator.clipboard.writeText(valueEl.textContent.trim());
+    label.textContent = t("contact.copied");
+  } catch (err) {
+    const r = document.createRange(); r.selectNodeContents(valueEl);
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+  }
+  setTimeout(() => { label.textContent = t("contact.copy"); }, 1600);
+});
+
+/* ---------- Header au scroll + parallax du hero ---------- */
+const hdr = $("#hdr");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+const wide = matchMedia("(min-width: 1024px)");
+const parallaxEls = $$("[data-speed]");
+let ticking = false;
+function onScroll() {
+  const y = scrollY;
+  hdr.classList.toggle("is-scrolled", y > 40);
+  if (!reduce.matches && wide.matches && y < innerHeight * 1.3) {
+    parallaxEls.forEach(el => el.style.setProperty("--py", (-y * parseFloat(el.dataset.speed)).toFixed(1) + "px"));
+  } else if (!wide.matches) {
+    parallaxEls.forEach(el => el.style.removeProperty("--py"));
+  }
+  ticking = false;
+}
+addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
+
+/* ---------- Lien actif dans la nav ---------- */
+const navIO = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) $$("#nav a").forEach(a => a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + en.target.id)));
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+$$("main section[id]").forEach(s => navIO.observe(s));
+
+/* ---------- Révélation au scroll (IntersectionObserver) ----------
+   Seuls les éléments situés sous l’écran au chargement sont masqués :
+   le premier écran reste toujours visible, même sans JS. */
+function setupReveal() {
+  if (reduce.matches || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+  }), { rootMargin: "0px 0px -8% 0px" });
+  $$(".reveal").forEach(el => {
+    if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("will-reveal"); io.observe(el); }
+  });
+}
+
+/* ---------- Init ---------- */
+$("#year").textContent = new Date().getFullYear();
+applyLang(lang);
+paintThemeBtn();
+onScroll();
+setupReveal();
+</script>
+</body>
+</html>
