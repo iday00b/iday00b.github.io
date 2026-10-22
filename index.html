@@ -37,6 +37,7 @@
 </script>
 <script>
   /* Thème appliqué avant le rendu pour éviter le flash : localStorage, sinon prefers-color-scheme */
+  document.documentElement.classList.add("js", "is-loading");   /* active l'écran de chargement */
   (function () { try { var saved = localStorage.getItem("theme"); if (saved === "light" || saved === "dark") document.documentElement.setAttribute("data-theme", saved); } catch (e) {} })();
 </script>
 <style>
@@ -152,6 +153,28 @@ p{margin:0}
 .pill--sm{font-size:.7rem;padding:.4em .4em .4em 1em}
 .pill.is-placeholder{--pbg:transparent;--pfg:var(--muted);box-shadow:inset 0 0 0 1px var(--border);cursor:not-allowed;padding-right:1.2em}
 .pill.is-placeholder:hover{transform:none;box-shadow:inset 0 0 0 1px var(--border)}
+
+/* ================= Écran de chargement ================= */
+.loader{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));color:var(--text);
+  background:radial-gradient(40% 40% at 50% 45%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%),var(--bg);
+  clip-path:inset(0 0 0 0);transition:opacity .7s var(--ease),clip-path .8s var(--ease),visibility .8s}
+.js .loader{display:flex}
+.loader.is-done{opacity:0;visibility:hidden;clip-path:inset(0 0 100% 0)}
+.loader__bat{width:clamp(150px,17vw,220px);height:auto;overflow:visible;transform-origin:50% 40%;
+  filter:drop-shadow(0 0 22px color-mix(in srgb,var(--accent-2) 55%,transparent));animation:batFlap 1.1s ease-in-out infinite}
+.loader__title{display:flex;align-items:center;gap:.6em;min-height:1.6em;font-family:var(--f-mono);font-size:clamp(.9rem,1.4vw,1.1rem);letter-spacing:.08em;text-transform:uppercase}
+.loader__prompt{color:var(--muted)}
+#loaderText{color:var(--hi)}
+.loader__caret{display:inline-block;width:.6em;height:1.15em;margin-left:-.3em;background:var(--accent-2);animation:caret 1s steps(1) infinite}
+.loader__bar{position:relative;width:min(220px,50vw);height:2px;border-radius:2px;background:var(--border);overflow:hidden}
+.loader__bar::after{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,transparent,var(--accent-2),transparent);animation:scanBar 1.2s ease-in-out infinite}
+@keyframes batFlap{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-6px) scaleY(.8)}}
+@keyframes caret{50%{opacity:0}}
+@keyframes scanBar{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+/* pendant le chargement : pas de scroll, et les animations d'entrée du hero attendent la fin */
+html.is-loading{overflow:hidden}
+.is-loading .intro,.is-loading .hero__portrait,.is-loading .hero__social{animation-play-state:paused}
 
 /* ================= Header ================= */
 .hdr{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);color:var(--text);transition:background-color .35s,box-shadow .35s}
@@ -482,6 +505,20 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
 </style>
 </head>
 <body>
+<!-- ================= ÉCRAN DE CHARGEMENT =================
+     Chauve-souris (dessin original) + titre qui s'écrit et change en boucle.
+     Masqué automatiquement à la fin du chargement (voir « Écran de chargement » dans le script). -->
+<div class="loader" id="loader" aria-hidden="true">
+  <svg class="loader__bat" viewBox="0 0 200 90">
+    <defs><linearGradient id="batGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" style="stop-color:var(--accent-2)"/><stop offset=".55" style="stop-color:var(--accent)"/><stop offset="1" style="stop-color:var(--d-bg-alt)"/>
+    </linearGradient></defs>
+    <path d="M100 34 L93 20 L88 34 C66 30 36 14 6 20 Q28 28 34 46 Q46 36 58 44 Q70 42 78 58 Q88 62 100 80 Q112 62 122 58 Q130 42 142 44 Q154 36 166 46 Q172 28 194 20 C164 14 134 30 112 34 L107 20 Z" fill="url(#batGrad)"/>
+  </svg>
+  <p class="loader__title"><span class="loader__prompt">&gt;</span><span id="loaderText">Cybersecurity Engineer</span><i class="loader__caret"></i></p>
+  <span class="loader__bar"></span>
+</div>
+<noscript><style>.loader{display:none!important}</style></noscript>
 <a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
 
 <!-- ================= HEADER ================= -->
@@ -942,6 +979,7 @@ const I18N = {
     "hero.socialLabel": "Réseaux sociaux", "hero.cvLink": "Télécharger mon CV",
     "hero.welcome": "Bienvenue sur mon <span class=\"w-pen\">portfolio</span>, où vous pouvez en savoir plus sur <button type=\"button\" class=\"me-word\" data-peek=\"mePop\" aria-expanded=\"false\" aria-controls=\"mePop\">moi</button> et découvrir mes derniers <a class=\"w-pen w-proj\" href=\"#projects\">projets</a>.",
     "hero.mePhoto": "Ayoub, photo prise en extérieur",
+    "loader.titles": ["Ingénieur en cybersécurité", "Passionné d’IA", "Passionné de Blue Team"],
     "hero.cta": "Voir mes projets", "hero.cta2": "Me contacter",
     "hero.photo": "Portrait d’Ayoub ID-OUISSAADNE",
     "man.text": "DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.",
@@ -989,6 +1027,7 @@ const I18N = {
     "hero.socialLabel": "Social links", "hero.cvLink": "Download resume",
     "hero.welcome": "Welcome to my <span class=\"w-pen\">portfolio</span>, where you can get an idea about <button type=\"button\" class=\"me-word\" data-peek=\"mePop\" aria-expanded=\"false\" aria-controls=\"mePop\">me</button> and explore my latest <a class=\"w-pen w-proj\" href=\"#projects\">projects</a>.",
     "hero.mePhoto": "Ayoub, outdoor photo",
+    "loader.titles": ["Cybersecurity Engineer", "AI Enthusiast", "Blue Teaming Enthusiast"],
     "hero.cta": "See my projects", "hero.cta2": "Get in touch",
     "hero.photo": "Portrait of Ayoub ID-OUISSAADNE",
     "man.text": "<em>DEFENDING</em> SYSTEMS, <em>HUNTING</em> THREATS, BUILDING <em>TRUST</em>. SOC &amp; CYBERSECURITY ENGINEER <em>IN THE MAKING</em>.",
@@ -1322,6 +1361,41 @@ function setupReveal() {
     if (!w || e.pointerType === "mouse") return;
     document.getElementById(w.dataset.peek).classList.contains("is-on") ? hide(w) : show(w);
   });
+})();
+
+/* ---------- Écran de chargement ----------
+   Le titre s'écrit, s'efface et passe au suivant ; le loader disparaît quand la page
+   est chargée (au moins LOADER_MIN ms pour voir l'animation, au plus LOADER_MAX ms). */
+const LOADER_MIN = 2000, LOADER_MAX = 6000;
+(function loader() {
+  const el = $("#loader"), out = $("#loaderText");
+  if (!el) return;
+  const titles = t("loader.titles");
+  let timer = 0, finished = false;
+  if (reduce.matches) out.textContent = titles[0];
+  else {
+    let i = 0, n = 0, del = false;
+    (function type() {
+      const word = titles[i];
+      n += del ? -1 : 1;
+      out.textContent = word.slice(0, n);
+      let wait = del ? 25 : 45;
+      if (!del && n === word.length) { del = true; wait = 900; }
+      else if (del && n === 0) { del = false; i = (i + 1) % titles.length; wait = 250; }
+      timer = setTimeout(type, wait);
+    })();
+  }
+  function finish() {
+    if (finished) return;
+    finished = true;
+    setTimeout(() => {
+      root.classList.remove("is-loading");          /* lance les animations d'entrée du hero */
+      el.classList.add("is-done");
+      setTimeout(() => { clearTimeout(timer); el.remove(); }, 900);
+    }, Math.max(0, (reduce.matches ? 500 : LOADER_MIN) - performance.now()));
+  }
+  if (document.readyState === "complete") finish(); else addEventListener("load", finish, { once: true });
+  setTimeout(finish, LOADER_MAX);
 })();
 
 /* ---------- Init ---------- */
