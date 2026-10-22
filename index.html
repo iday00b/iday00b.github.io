@@ -224,12 +224,17 @@ p{margin:0}
 .me-word{font-family:var(--f-script);font-size:1.75em;line-height:1;padding:0 .14em;color:var(--muted);background:none;border:0;cursor:pointer;
   border-bottom:2px dotted var(--accent);transition:color .3s}
 .me-word:hover,.me-word:focus-visible,.me-word[aria-expanded="true"]{color:var(--text)}
-/* Petit cadre photo qui apparaît au-dessus de « me » */
-.me-pop{position:absolute;left:0;top:0;z-index:20;width:170px;margin:0;padding:6px;border-radius:14px;background:var(--surface);pointer-events:none;
+/* Petits cadres photo qui apparaissent au survol d'un mot (data-peek) */
+.peek{position:absolute;left:0;top:0;z-index:20;width:var(--pw,170px);margin:0;padding:6px;border-radius:14px;background:var(--surface);pointer-events:none;
   box-shadow:0 0 0 3px var(--accent),0 24px 50px -16px color-mix(in srgb,var(--d-bg) 70%,transparent),0 0 40px -8px color-mix(in srgb,var(--accent-2) 55%,transparent);
   opacity:0;visibility:hidden;transform:rotate(-12deg) scale(.6);transform-origin:50% 100%;transition:opacity .3s var(--ease),transform .45s var(--ease),visibility .3s}
-.me-pop.is-on{opacity:1;visibility:visible;transform:rotate(-5deg) scale(1)}
-.me-pop img{width:100%;height:auto;aspect-ratio:420/490;object-fit:cover;border-radius:9px}
+.peek.is-on{opacity:1;visibility:visible;transform:rotate(var(--tilt,-5deg)) scale(1)}
+.peek img{width:100%;height:auto;object-fit:cover;border-radius:9px}
+.peek--me img{aspect-ratio:420/490}
+.peek--portrait{--pw:clamp(170px,16vw,230px);--tilt:4deg}
+.peek--portrait img{aspect-ratio:4/5}
+.peek--wide{--pw:clamp(240px,24vw,340px);--tilt:-4deg}
+.peek--wide img{aspect-ratio:2/1}
 @media (min-width:1024px){
   .welcome{position:absolute;top:36%;right:max(clamp(16px,4vw,56px),env(safe-area-inset-right,0px));width:min(27vw,400px);max-width:none}
 }
@@ -273,27 +278,51 @@ p{margin:0}
 .script{position:absolute;z-index:6;font-family:var(--f-script);font-weight:400;font-size:clamp(5.2rem,16vw,15rem);line-height:1.1;white-space:nowrap;padding:0 .2em;
   background:linear-gradient(95deg,var(--accent) 10%,var(--accent-2) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;
   rotate:-8deg;pointer-events:none;user-select:none}
-.script--about{top:0;right:2vw;translate:0 -56%}
 .script--projects{top:0;left:1vw;translate:0 -52%;rotate:-5deg}
 .script--footer{right:2%;bottom:2%;font-size:clamp(4rem,11vw,10rem);rotate:-7deg;z-index:1;opacity:.85}
 
+/* ================= Transition accueil → À propos =================
+   L'accueil reste collé (sticky) et s'estompe pendant que la section À propos
+   glisse par-dessus ; --cover (0 → 1) est mis à jour par le JS au scroll. */
+.stack{position:relative}
+.stack>.hero{position:sticky;top:var(--hero-stick,0px);z-index:0}
+.stack>.hero .hero__inner{transform-origin:50% 35%;transform:scale(calc(1 - var(--cover,0) * .08)) translateY(calc(var(--cover,0) * -30px));opacity:calc(1 - var(--cover,0) * .75)}
+.about{z-index:1;border-radius:calc((1 - var(--cover,0)) * 44px) calc((1 - var(--cover,0)) * 44px) 0 0;
+  box-shadow:0 -40px 80px -30px color-mix(in srgb,var(--d-bg) 70%,transparent)}
+/* ligne « scanner » lumineuse en haut de la section */
+.about::before{content:"";position:absolute;top:0;left:6%;right:6%;height:2px;opacity:calc(1 - var(--cover,0) * .8);
+  background:linear-gradient(90deg,transparent,var(--accent-2),transparent);box-shadow:0 0 22px 2px color-mix(in srgb,var(--accent-2) 60%,transparent)}
+
 /* ================= About ================= */
-.about{display:grid;gap:48px}
-.about__lead{font-family:var(--f-serif);font-size:clamp(1.45rem,2.5vw,2.15rem);line-height:1.25;margin-top:30px;text-wrap:pretty}
-.about__body{display:grid;gap:18px;max-width:62ch}
-.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:36px 0 0;border-top:1px solid var(--border)}
-.facts div{padding:16px 12px 16px 0;border-bottom:1px solid var(--border);min-width:0}
-.facts dt{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
-.facts dd{margin:4px 0 0;font-weight:650;line-height:1.35}
-.edu-title{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:44px 0 12px}
-.edu{list-style:none;margin:0;padding:0;display:grid}
-.edu li{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:18px 0;border-bottom:1px solid var(--border)}
+.about__wrap{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.about__head{align-self:flex-start;text-align:left;margin-bottom:clamp(44px,7vw,96px)}
+.about__head .kicker{margin-bottom:.4rem}
+.about__title{font-family:var(--f-pen);font-weight:400;font-size:clamp(3rem,6.5vw,5.6rem);line-height:1;margin:0;color:var(--text)}
+.about__title em{font-style:normal;color:var(--kw)}
+.about__lines{display:grid;gap:clamp(24px,3.6vw,48px);max-width:1200px}
+.about-line{font-family:var(--f-display);font-weight:800;font-stretch:118%;text-transform:uppercase;font-size:clamp(1.1rem,2.45vw,2.4rem);line-height:1.24;letter-spacing:.01em;text-wrap:balance}
+.hl-a{color:var(--kw)}
+.hl-b{color:var(--accent)}
+.hl-grad{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* une fois découpés en mots, chaque mot porte son propre dégradé (sinon les mots estompés disparaissent) */
+.hl-grad .w{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.about-line .peek-word{font:inherit;letter-spacing:inherit;text-transform:inherit;padding:0;background:none;border:0;cursor:pointer;
+  text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:.2em;transition:text-shadow .3s}
+.about-line .peek-word:hover,.about-line .peek-word:focus-visible,.about-line .peek-word[aria-expanded="true"]{text-shadow:0 0 22px color-mix(in srgb,var(--accent-2) 70%,transparent)}
+/* mots qui s'allument au scroll (classes posées par le JS) */
+.js-words .w{opacity:.16;transition:opacity .4s var(--ease)}
+.js-words .w.on{opacity:1}
+/* formation, en bas de la section */
+.about__edu{list-style:none;margin:clamp(60px,8vw,110px) 0 0;padding:26px 0 0;border-top:1px solid var(--border);display:grid;gap:22px;width:100%;max-width:1200px;text-align:left}
+.about__edu li{display:grid;gap:4px;min-width:0}
 .edu__when{font-family:var(--f-mono);font-size:.75rem;color:var(--hi)}
-.edu__deg{font-family:var(--f-display);font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:1.2rem;line-height:1.1}
-.edu__school{font-family:var(--f-serif);font-size:1.05rem}
+.edu__deg{font-family:var(--f-display);font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:1.15rem;line-height:1.15}
+.edu__school{font-family:var(--f-serif);font-size:1.05rem;color:var(--muted)}
 .tag-live{display:inline-block;margin-left:.5em;font-family:var(--f-mono);font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:.2em .6em;border-radius:999px;background:var(--accent);color:var(--on-accent);vertical-align:middle}
-@media (min-width:640px){.edu li{grid-template-columns:150px minmax(0,1fr);gap:18px}}
-@media (min-width:960px){.about{grid-template-columns:5fr 7fr;gap:clamp(56px,7vw,120px)}.about__right{padding-top:12px}}
+@media (min-width:760px){.about__edu{grid-template-columns:1fr 1fr;gap:48px}}
+
+/* Manifeste : suit le thème clair/sombre, juste après l'À propos */
+.manifesto{background-color:var(--bg);color:var(--text)}
 
 /* ================= Skills (cartes "Hall of Fame") ================= */
 .skills{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
@@ -455,6 +484,8 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .marquee__track{animation:none!important}
   .will-reveal{opacity:1;translate:0 0}
+  .stack>.hero{position:relative;top:0}
+  .stack>.hero .hero__inner{transform:none;opacity:1}
 }
 </style>
 </head>
@@ -512,6 +543,7 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
 
 <main id="main">
 
+<div class="stack">
 <!-- ================= 1. HERO ================= -->
 <section class="hero" id="top">
   <div class="wrap hero__inner">
@@ -528,8 +560,8 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
 
     <!-- Paragraphe d'accueil : survoler « me / moi » affiche une petite photo -->
     <div class="welcome" id="welcome">
-      <p class="welcome__text intro" style="--d:.55s" data-i18n="hero.welcome">Bienvenue sur mon <span class="w-pen">portfolio</span>, où vous pouvez en savoir plus sur <button type="button" class="me-word" aria-expanded="false" aria-controls="mePop">moi</button> et découvrir mes derniers <a class="w-pen w-proj" href="#projects">projets</a>.</p>
-      <figure class="me-pop" id="mePop" aria-hidden="true">
+      <p class="welcome__text intro" style="--d:.55s" data-i18n="hero.welcome">Bienvenue sur mon <span class="w-pen">portfolio</span>, où vous pouvez en savoir plus sur <button type="button" class="me-word" data-peek="mePop" aria-expanded="false" aria-controls="mePop">moi</button> et découvrir mes derniers <a class="w-pen w-proj" href="#projects">projets</a>.</p>
+      <figure class="peek peek--me" id="mePop" aria-hidden="true">
         <!-- [PHOTO] photo décontractée : remplacez assets/me.webp -->
         <img src="assets/me.webp" width="420" height="490" data-i18n-alt="hero.mePhoto" alt="Ayoub, photo prise en extérieur">
       </figure>
@@ -546,33 +578,35 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
   </div>
 </section>
 
+<!-- ================= 2. ABOUT =================
+     L'accueil reste collé pendant que « À propos » glisse par-dessus (voir .stack dans le CSS). -->
+<section class="sec band about" id="about">
+  <div class="wrap about__wrap">
+    <div class="about__head">
+      <p class="kicker">~/about</p>
+      <h2 class="about__title" data-i18n="about.title">À <em>propos</em></h2>
+    </div>
+    <!-- Les mots s'allument au fil du scroll ; survoler le nom ou l'école affiche une photo -->
+    <div class="about__lines" id="aboutLines">
+      <p class="about-line" data-i18n="about.l1"></p>
+      <p class="about-line" data-i18n="about.l2"></p>
+      <p class="about-line" data-i18n="about.l3"></p>
+      <p class="about-line" data-i18n="about.l4"></p>
+    </div>
+    <ol class="about__edu" id="education"></ol>
+    <!-- [PHOTOS] remplacez assets/ayoub.webp et assets/ensiasd.webp -->
+    <figure class="peek peek--portrait" id="peekMe" aria-hidden="true"><img src="assets/ayoub.webp" width="480" height="600" loading="lazy" data-i18n-alt="about.photoMe" alt="Ayoub tenant un petit oiseau"></figure>
+    <figure class="peek peek--wide" id="peekSchool" aria-hidden="true"><img src="assets/ensiasd.webp" width="680" height="341" loading="lazy" data-i18n-alt="about.photoSchool" alt="Façade de l’ENSIASD à Taroudant"></figure>
+  </div>
+</section>
+</div>
+
 <!-- Manifeste -->
-<section class="manifesto band radar" aria-labelledby="manifesto-title">
+<section class="manifesto radar" aria-labelledby="manifesto-title">
   <div class="wrap">
     <p class="kicker reveal">~/manifesto</p>
     <h2 class="display manifesto__text reveal" id="manifesto-title" data-i18n="man.text">DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.</h2>
     <ul class="stats reveal" id="stats"></ul>
-  </div>
-</section>
-
-<!-- ================= 2. ABOUT ================= -->
-<section class="sec" id="about">
-  <div class="script script--about" aria-hidden="true">Blue Team</div>
-  <div class="wrap about">
-    <div class="about__left reveal">
-      <p class="kicker">~/about</p>
-      <h2 class="display h2" data-i18n="about.title">À <em>PROPOS</em></h2>
-      <p class="about__lead" data-i18n="about.lead">Passionné par la sécurité défensive et l’analyse SOC.</p>
-    </div>
-    <div class="about__right reveal">
-      <div class="about__body">
-        <p data-i18n="about.p1"></p>
-        <p data-i18n="about.p2"></p>
-      </div>
-      <dl class="facts" id="facts"></dl>
-      <p class="edu-title" data-i18n="about.edu">Formation</p>
-      <ol class="edu" id="education"></ol>
-    </div>
   </div>
 </section>
 
@@ -727,14 +761,6 @@ const STATS = [
   { value: { fr: "3e", en: "3rd" }, label: { fr: "année d’ingénieur", en: "engineering year" } },
   { value: "2", label: { fr: "stages", en: "internships" } },
   { value: "3", label: { fr: "projets majeurs", en: "major projects" } },
-];
-
-/* Infos rapides (section À propos) */
-const FACTS = [
-  { k: { fr: "Localisation", en: "Location" }, v: { fr: "Taroudant, Souss-Massa, Maroc", en: "Taroudant, Souss-Massa, Morocco" } },
-  { k: { fr: "Statut", en: "Status" }, v: { fr: "Recherche un stage PFE", en: "Seeking a final-year internship (PFE)" } },
-  { k: { fr: "École", en: "School" }, v: { fr: "ENSIASD Taroudant, 3e année", en: "ENSIASD Taroudant, 3rd year" } },
-  { k: { fr: "Spécialité", en: "Focus" }, v: { fr: "SOC · détection · réponse", en: "SOC · detection · response" } },
 ];
 
 /* Formation */
@@ -933,16 +959,18 @@ const I18N = {
     "hero.status": "Recherche un stage de fin d’études (PFE)",
     "hero.role": "Ingénieur en cybersécurité &amp; passionné d’IA",
     "hero.socialLabel": "Réseaux sociaux", "hero.cvLink": "Télécharger mon CV",
-    "hero.welcome": "Bienvenue sur mon <span class=\"w-pen\">portfolio</span>, où vous pouvez en savoir plus sur <button type=\"button\" class=\"me-word\" aria-expanded=\"false\" aria-controls=\"mePop\">moi</button> et découvrir mes derniers <a class=\"w-pen w-proj\" href=\"#projects\">projets</a>.",
+    "hero.welcome": "Bienvenue sur mon <span class=\"w-pen\">portfolio</span>, où vous pouvez en savoir plus sur <button type=\"button\" class=\"me-word\" data-peek=\"mePop\" aria-expanded=\"false\" aria-controls=\"mePop\">moi</button> et découvrir mes derniers <a class=\"w-pen w-proj\" href=\"#projects\">projets</a>.",
     "hero.mePhoto": "Ayoub, photo prise en extérieur",
     "hero.cta": "Voir mes projets", "hero.cta2": "Me contacter",
     "hero.photo": "Portrait d’Ayoub ID-OUISSAADNE",
     "man.text": "DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.",
-    "about.title": "À <em>PROPOS</em>",
-    "about.lead": "Passionné par la sécurité défensive et l’analyse SOC.",
-    "about.p1": "Je suis élève ingénieur en 3e année à l’ENSIASD de Taroudant, en cybersécurité et confiance numérique. Je joue activement à des CTF orientés défense (CRTF) et je suis classé dans le Top 1% TryHackMe au Maroc.",
-    "about.p2": "Je prépare les certifications CCD L1 et SOC Analyst (LetsDefend). Je cherche un stage de fin d’études (PFE) pour mettre en pratique la détection, l’investigation et la réponse aux incidents dans une vraie équipe SOC.",
-    "about.edu": "Formation",
+    "about.title": "À <em>propos</em>",
+    "about.l1": "JE M’APPELLE <button type='button' class='peek-word hl-a' data-peek='peekMe' aria-controls='peekMe' aria-expanded='false'>AYOUB ID-OUISSAADNE</button>, PASSIONNÉ DE <span class='hl-b'>BLUE TEAM</span>, BASÉ À TAROUDANT, AU MAROC.",
+    "about.l2": "JE SUIS ÉLÈVE INGÉNIEUR EN DERNIÈRE ANNÉE À L’<button type='button' class='peek-word hl-a' data-peek='peekSchool' aria-controls='peekSchool' aria-expanded='false'>ENSIASD</button>, EN <span class='hl-grad'>CYBERSÉCURITÉ ET CONFIANCE NUMÉRIQUE</span>.",
+    "about.l3": "JE SURVEILLE, DÉTECTE ET RÉPONDS AUX MENACES, ET JE SUIS CLASSÉ DANS LE <span class='hl-b'>TOP 1%</span> TRYHACKME AU MAROC.",
+    "about.l4": "AUJOURD’HUI, JE CHERCHE UN <span class='hl-grad'>STAGE PFE</span> POUR DÉFENDRE DE VRAIS SYSTÈMES AU SEIN D’UNE ÉQUIPE SOC.",
+    "about.photoMe": "Ayoub tenant un petit oiseau",
+    "about.photoSchool": "Façade de l’ENSIASD à Taroudant",
     "skills.title": "COMPÉTENCES <em>CLÉS</em>",
     "skills.intro": "De la conformité ISO 2700x à la détection dans un SIEM : les compétences que j’utilise en stage, en projet et en CTF.",
     "tools.title": "LA <em>BOÎTE</em> À OUTILS",
@@ -978,16 +1006,18 @@ const I18N = {
     "hero.status": "Looking for a final-year internship (PFE)",
     "hero.role": "Cybersecurity Engineer &amp; AI Enthusiast",
     "hero.socialLabel": "Social links", "hero.cvLink": "Download resume",
-    "hero.welcome": "Welcome to my <span class=\"w-pen\">portfolio</span>, where you can get an idea about <button type=\"button\" class=\"me-word\" aria-expanded=\"false\" aria-controls=\"mePop\">me</button> and explore my latest <a class=\"w-pen w-proj\" href=\"#projects\">projects</a>.",
+    "hero.welcome": "Welcome to my <span class=\"w-pen\">portfolio</span>, where you can get an idea about <button type=\"button\" class=\"me-word\" data-peek=\"mePop\" aria-expanded=\"false\" aria-controls=\"mePop\">me</button> and explore my latest <a class=\"w-pen w-proj\" href=\"#projects\">projects</a>.",
     "hero.mePhoto": "Ayoub, outdoor photo",
     "hero.cta": "See my projects", "hero.cta2": "Get in touch",
     "hero.photo": "Portrait of Ayoub ID-OUISSAADNE",
     "man.text": "<em>DEFENDING</em> SYSTEMS, <em>HUNTING</em> THREATS, BUILDING <em>TRUST</em>. SOC &amp; CYBERSECURITY ENGINEER <em>IN THE MAKING</em>.",
-    "about.title": "ABOUT <em>ME</em>",
-    "about.lead": "Driven by defensive security and SOC analysis.",
-    "about.p1": "I’m a third-year cybersecurity and digital trust engineering student at ENSIASD in Taroudant. I play defense-oriented CTFs (CRTF) and rank in the top 1% on TryHackMe in Morocco.",
-    "about.p2": "I’m preparing the CCD L1 and LetsDefend SOC Analyst certifications, and I’m looking for a final-year internship (PFE) where I can practice detection, investigation and incident response inside a real SOC team.",
-    "about.edu": "Education",
+    "about.title": "About <em>me</em>",
+    "about.l1": "MY NAME IS <button type='button' class='peek-word hl-a' data-peek='peekMe' aria-controls='peekMe' aria-expanded='false'>AYOUB ID-OUISSAADNE</button>, A <span class='hl-b'>BLUE TEAM</span> ENTHUSIAST BASED IN TAROUDANT, MOROCCO.",
+    "about.l2": "I AM A FINAL-YEAR ENGINEERING STUDENT AT <button type='button' class='peek-word hl-a' data-peek='peekSchool' aria-controls='peekSchool' aria-expanded='false'>ENSIASD</button> IN <span class='hl-grad'>CYBERSECURITY &amp; DIGITAL TRUST</span>.",
+    "about.l3": "I MONITOR, DETECT AND RESPOND TO THREATS, AND I RANK IN THE <span class='hl-b'>TOP 1%</span> OF TRYHACKME PLAYERS IN MOROCCO.",
+    "about.l4": "TODAY I AM LOOKING FOR A <span class='hl-grad'>PFE INTERNSHIP</span> TO DEFEND REAL SYSTEMS INSIDE A SOC TEAM.",
+    "about.photoMe": "Ayoub holding a small bird",
+    "about.photoSchool": "The ENSIASD building in Taroudant",
     "skills.title": "CORE <em>SKILLS</em>",
     "skills.intro": "From ISO 2700x compliance to detection in a SIEM: the skills I use in internships, projects and CTFs.",
     "tools.title": "THE <em>TOOLKIT</em>",
@@ -1061,11 +1091,9 @@ function renderStats() {
   $("#stats").innerHTML = STATS.map(s => `<li><strong>${L(s.value)}</strong><span>${L(s.label)}</span></li>`).join("");
 }
 function renderAbout() {
-  $("#facts").innerHTML = FACTS.map(f => `<div><dt>${L(f.k)}</dt><dd>${L(f.v)}</dd></div>`).join("");
   $("#education").innerHTML = EDUCATION.map(e => `
-    <li><span class="edu__when">${L(e.when)}</span>
-      <div><div class="edu__deg">${L(e.degree)}${e.live ? `<span class="tag-live">${t("status.progress")}</span>` : ""}</div>
-      <div class="edu__school">${L(e.school)}</div></div></li>`).join("");
+    <li><span class="edu__when">${L(e.when)}${e.live ? `<span class="tag-live">${t("status.progress")}</span>` : ""}</span>
+      <span class="edu__deg">${L(e.degree)}</span><span class="edu__school">${L(e.school)}</span></li>`).join("");
 }
 function renderSkills() {
   $("#skillsGrid").innerHTML = SKILLS.map(s => {
@@ -1167,6 +1195,7 @@ function applyLang(next) {
   $$(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
   document.title = t("meta.title");
   $('meta[name="description"]').setAttribute("content", t("meta.desc"));
+  if (!reduce.matches) { $$("#aboutLines .about-line").forEach(splitWords); $("#aboutLines").classList.add("js-words"); }
   renderStats(); renderAbout(); renderSkills(); renderTools(); renderDB();
   renderProjects(); renderXP(); renderCerts(); renderContact(); renderNav();
   $$("[data-ic]").forEach(el => { el.innerHTML = ICONS[el.dataset.ic]; });
@@ -1214,14 +1243,50 @@ document.addEventListener("click", async e => {
   setTimeout(() => { label.textContent = t("contact.copy"); }, 1600);
 });
 
+/* ---------- À propos : découpe les phrases en mots qui s'allument au scroll ---------- */
+function splitWords(el) {
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n => {
+    if (!n.nodeValue.trim()) return;
+    const frag = document.createDocumentFragment();
+    n.nodeValue.split(/(\s+)/).forEach(part => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) { frag.append(part); return; }
+      const w = document.createElement("span");
+      w.className = "w"; w.textContent = part; frag.append(w);
+    });
+    n.replaceWith(frag);
+  });
+  el._words = el.querySelectorAll(".w");
+}
+function revealWords() {
+  for (const line of $$("#aboutLines .about-line")) {
+    if (!line._words) continue;
+    const top = line.getBoundingClientRect().top;
+    const p = Math.min(1, Math.max(0, (innerHeight * .9 - top) / (innerHeight * .42)));
+    const n = Math.round(p * line._words.length);
+    line._words.forEach((w, i) => w.classList.toggle("on", i < n));
+  }
+}
+
 /* ---------- Header au scroll + parallax du hero ---------- */
 const hdr = $("#hdr");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)");
 const wide = matchMedia("(min-width: 1024px)");
 const parallaxEls = $$("[data-speed]");
 let ticking = false;
+const stack = $(".stack"), heroSec = $(".hero"), aboutSec = $("#about");
+/* l'accueil se colle quand son bas atteint le bas de l'écran (utile s'il est plus haut que l'écran) */
+function setHeroStick() { stack.style.setProperty("--hero-stick", Math.min(0, innerHeight - heroSec.offsetHeight) + "px"); }
+addEventListener("resize", setHeroStick);
 function onScroll() {
   const y = scrollY;
+  if (!reduce.matches) {
+    const cover = Math.min(1, Math.max(0, 1 - aboutSec.getBoundingClientRect().top / innerHeight));
+    stack.style.setProperty("--cover", cover.toFixed(3));
+    revealWords();
+  }
   hdr.classList.toggle("is-scrolled", y > 40);
   if (!reduce.matches && wide.matches && y < innerHeight * 1.3) {
     parallaxEls.forEach(el => el.style.setProperty("--py", (-y * parseFloat(el.dataset.speed)).toFixed(1) + "px"));
@@ -1253,33 +1318,33 @@ function setupReveal() {
   });
 }
 
-/* ---------- « me / moi » : petite photo au survol du mot (paragraphe d'accueil) ---------- */
-(function mePopup() {
-  const box = $("#welcome"), pop = $("#mePop");
+/* ---------- Petites photos au survol d'un mot (data-peek="id-de-la-figure") ----------
+   Utilisé pour « me / moi » dans l'accueil, le nom et l'école dans l'À propos. */
+(function peeks() {
   function show(word) {
-    const b = word.getBoundingClientRect(), c = box.getBoundingClientRect(), w = pop.offsetWidth;
-    /* centré au-dessus du mot, sans sortir de l'écran */
+    const pop = document.getElementById(word.dataset.peek), scope = pop.parentElement;
+    const b = word.getBoundingClientRect(), c = scope.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
+    /* centré au-dessus du mot (ou en dessous s'il n'y a pas la place), sans sortir de l'écran */
     const x = Math.max(16 - c.left, Math.min(b.left - c.left + b.width / 2 - w / 2, innerWidth - c.left - w - 16));
+    const above = b.top - h - 14 > 80;
     pop.style.left = x + "px";
-    /* au-dessus du mot, ou en dessous s'il n'y a pas la place sous l'en-tête */
-    const above = b.top - pop.offsetHeight - 14 > 80;
-    pop.style.top = (above ? b.top - c.top - pop.offsetHeight - 14 : b.bottom - c.top + 14) + "px";
+    pop.style.top = (above ? b.top - c.top - h - 14 : b.bottom - c.top + 14) + "px";
     pop.classList.add("is-on");
     word.setAttribute("aria-expanded", "true");
   }
   function hide(word) {
-    pop.classList.remove("is-on");
-    if (word) word.setAttribute("aria-expanded", "false");
+    document.getElementById(word.dataset.peek).classList.remove("is-on");
+    word.setAttribute("aria-expanded", "false");
   }
-  const wordOf = (e) => e.target.closest(".me-word");
-  box.addEventListener("mouseover", e => { const w = wordOf(e); if (w) show(w); });
-  box.addEventListener("mouseout", e => { const w = wordOf(e); if (w && !w.contains(e.relatedTarget)) hide(w); });
-  box.addEventListener("focusin", e => { const w = wordOf(e); if (w) show(w); });
-  box.addEventListener("focusout", e => { const w = wordOf(e); if (w) hide(w); });
-  box.addEventListener("click", e => {          /* écrans tactiles : un tap affiche / masque */
+  const wordOf = (e) => e.target.closest && e.target.closest("[data-peek]");
+  document.addEventListener("mouseover", e => { const w = wordOf(e); if (w) show(w); });
+  document.addEventListener("mouseout", e => { const w = wordOf(e); if (w && !w.contains(e.relatedTarget)) hide(w); });
+  document.addEventListener("focusin", e => { const w = wordOf(e); if (w) show(w); });
+  document.addEventListener("focusout", e => { const w = wordOf(e); if (w) hide(w); });
+  document.addEventListener("click", e => {      /* écrans tactiles : un tap affiche / masque */
     const w = wordOf(e);
     if (!w || e.pointerType === "mouse") return;
-    pop.classList.contains("is-on") ? hide(w) : show(w);
+    document.getElementById(w.dataset.peek).classList.contains("is-on") ? hide(w) : show(w);
   });
 })();
 
@@ -1287,6 +1352,7 @@ function setupReveal() {
 $("#year").textContent = new Date().getFullYear();
 applyLang(lang);
 paintThemeBtn();
+setHeroStick();
 onScroll();
 setupReveal();
 </script>
