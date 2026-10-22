@@ -56,11 +56,6 @@
   --hi:var(--l-accent);        /* chiffres, dates, tags mis en avant */
   --grid:color-mix(in srgb,var(--l-accent) 8%,transparent);
 
-  /* ---- Armure du hero (lue par le JS) : bleue dans les deux thèmes ---- */
-  --armor-hi:var(--d-accent); --armor-mid:var(--l-accent); --armor-low:var(--d-bg-alt);
-  --visor-a:var(--d-bg); --visor-b:var(--d-surface); --armor-sheen:var(--d-text);
-  --mask-glow:var(--d-accent-2);
-  --glitch-a:var(--l-accent-2); --glitch-b:var(--l-accent);
 
   --shadow:0 26px 50px -20px color-mix(in srgb,var(--d-bg) 55%,transparent);
 
@@ -82,7 +77,7 @@
     --bg:var(--d-bg); --bg-alt:var(--d-bg-alt); --surface:var(--d-surface); --text:var(--d-text); --muted:var(--d-muted);
     --accent:var(--d-accent); --accent-2:var(--d-accent-2); --border:var(--d-border); --on-accent:var(--d-on-accent);
     --kw:var(--d-accent-2); --hi:var(--d-accent-2); --grid:color-mix(in srgb,var(--d-accent) 8%,transparent);
-    --glitch-a:var(--d-accent-2); --glitch-b:var(--d-accent);
+   
     color-scheme:dark;
   }
 }
@@ -90,7 +85,7 @@
   --bg:var(--d-bg); --bg-alt:var(--d-bg-alt); --surface:var(--d-surface); --text:var(--d-text); --muted:var(--d-muted);
   --accent:var(--d-accent); --accent-2:var(--d-accent-2); --border:var(--d-border); --on-accent:var(--d-on-accent);
   --kw:var(--d-accent-2); --hi:var(--d-accent-2); --grid:color-mix(in srgb,var(--d-accent) 8%,transparent);
-  --glitch-a:var(--d-accent-2); --glitch-b:var(--d-accent);
+ 
   color-scheme:dark;
 }
 
@@ -207,10 +202,6 @@ p{margin:0}
 .hero__role{font-size:clamp(1.2rem,2vw,1.65rem);font-weight:500;max-width:24ch;line-height:1.3;text-wrap:balance}
 .hero__loc{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);letter-spacing:.04em}
 .hero__ctas{display:flex;flex-wrap:wrap;gap:10px}
-.hero__hint{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.04em;display:flex;align-items:center;gap:.6em}
-.hero__hint::before{content:"";width:22px;height:1px;background:var(--accent-2)}
-.hint-touch{display:none}
-@media (hover:none){.hint-touch{display:inline}.hint-mouse{display:none}}
 
 /* Icônes sociales du hero */
 .hero__social{list-style:none;margin:8px 0 6px;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
@@ -252,19 +243,13 @@ p{margin:0}
 .hero__portrait{position:absolute;inset:0;margin:0;translate:0 var(--py,0px);animation:fadeIn 1.2s .15s var(--ease) both}
 .hero__portrait img{width:100%;height:100%;object-fit:contain;object-position:bottom;transition:filter .4s}
 .hero__portrait img{-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
-/* Couche « masque de hacker » (canvas, révélée par fragments) */
-.hero__mask{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
-.hero__mask.is-static{opacity:0;transition:opacity .6s ease!important}
-.hero__mask.is-static.is-full{opacity:1}
-/* Fallback sans canvas : simple halo au survol */
-.hero:hover .mask-fallback img{filter:drop-shadow(0 0 28px color-mix(in srgb,var(--accent-2) 55%,transparent))}
 
 @media (min-width:1024px){
   .hero{padding-top:calc(84px + env(safe-area-inset-top,0px))}
   .hero__inner{display:block;min-height:clamp(680px,calc(100svh - 84px),940px)}
   .hero__text{max-width:none;padding-top:18px}
   .hero__name{font-size:clamp(4.4rem,7.3vw,8.4rem)}
-  .hero__role,.hero__hint,.status{max-width:38%}
+  .hero__role,.status{max-width:38%}
   .hero__text{padding-top:clamp(18px,6vh,70px)}
   .hero__stage{position:absolute;inset:0;width:auto;margin:0;aspect-ratio:auto;z-index:2;pointer-events:none}
   .hero__ring{display:block;position:absolute;left:50%;top:9%;width:min(52vh,500px);aspect-ratio:1;border-radius:50%;translate:-50% 0;
@@ -537,16 +522,13 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
       <p class="hero__role intro" style="--d:.36s" data-i18n="hero.role">Ingénieur en cybersécurité &amp; passionné d’IA</p>
       <!-- Réseaux sociaux + bouton CV (générés depuis CONTACTS dans le script) -->
       <ul class="hero__social intro" style="--d:.48s" id="heroSocial" data-i18n-aria="hero.socialLabel" aria-label="Réseaux et CV"></ul>
-      <p class="hero__hint intro" style="--d:.6s" aria-hidden="true"><span class="hint-mouse" data-i18n="hero.hint">Survolez-moi pour activer l’armure</span><span class="hint-touch" data-i18n="hero.hintTouch">Touchez-moi pour activer l’armure</span></p>
     </div>
 
     <div class="hero__stage">
       <div class="hero__ring" aria-hidden="true"></div>
       <!-- [PHOTO] remplacez assets/photo.webp par votre portrait détouré (PNG/WebP transparent) -->
-      <figure class="hero__portrait" id="portrait" data-speed="-0.06">
+      <figure class="hero__portrait" data-speed="-0.06">
         <img src="assets/photo.webp" width="890" height="900" fetchpriority="high" data-i18n-alt="hero.photo" alt="Portrait d’Ayoub ID-OUISSAADNE">
-        <!-- Couche « armure » révélée par fragments au survol (effet décoratif) -->
-        <canvas class="hero__mask" id="maskCanvas" aria-hidden="true"></canvas>
       </figure>
     </div>
   </div>
@@ -716,32 +698,6 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
 </footer>
 
 <script>
-/* =====================================================================
-   RÉGLAGES DE L'EFFET HERO « ARMOR REVEAL »
-   (survol du portrait → une armure de robot bleue apparaît par fragments)
-   ===================================================================== */
-const MASK_CONFIG = {
-  shardSize: 0.07,     // taille moyenne d'un fragment (fraction de la largeur du portrait)
-  trail: 1800,         // durée de vie d'un fragment en ms (traînée), puis il disparaît
-  fadeStart: 0.5,      // part de la durée de vie avant le début du fondu
-  appear: 170,         // durée de l'apparition + glitch RGB d'un fragment (ms)
-  glitch: 7,           // intensité du glitch RGB (décalage max en px)
-  maxShards: 60,       // nombre max de fragments actifs
-  accent: "",          // couleur des néons forcée, ex. "#00E0FF" ; vide = couleur du thème (--mask-glow)
-  dwellDelay: 380,     // ms d'immobilité sur le corps avant que l'armure se complète
-  idleSweep: 3000,     // mobile : balayage automatique après X ms sans toucher
-};
-
-/* Zone couverte par l'armure dans assets/photo.webp (890×900), en fractions de l'image :
-   une ellipse pour le casque + un trapèze pour le buste.
-   À ajuster si vous changez de photo (ainsi que les coordonnées des SVG d'armure). */
-const ARMOR_ZONE = {
-  head: { cx: 0.5, cy: 0.278, rx: 0.203, ry: 0.278 },
-  bodyTop: 0.55,       // hauteur où commence le buste
-  halfTop: 0.26,       // demi-largeur du buste en haut
-  halfBottom: 0.5,     // demi-largeur du buste en bas de l'image
-};
-
 /* =====================================================================
    DONNÉES : modifiez ces tableaux pour mettre à jour le site.
    Un texte peut être une simple chaîne ("Python") ou un objet bilingue
@@ -966,7 +922,6 @@ const I18N = {
     "hero.role": "Ingénieur en cybersécurité &amp; passionné d’IA",
     "hero.socialLabel": "Réseaux sociaux et CV", "hero.cv": "Mon CV", "hero.cvSub": "Télécharger",
     "hero.cta": "Voir mes projets", "hero.cta2": "Me contacter",
-    "hero.hint": "Survolez-moi pour activer l’armure", "hero.hintTouch": "Touchez-moi pour activer l’armure",
     "hero.photo": "Portrait d’Ayoub ID-OUISSAADNE",
     "man.text": "DÉFENDRE LES <em>SYSTÈMES</em>, TRAQUER LES <em>MENACES</em>, BÂTIR LA <em>CONFIANCE</em>. INGÉNIEUR SOC &amp; CYBERSÉCURITÉ <em>EN DEVENIR</em>.",
     "about.title": "À <em>PROPOS</em>",
@@ -1010,7 +965,6 @@ const I18N = {
     "hero.role": "Cybersecurity Engineer &amp; AI Enthusiast",
     "hero.socialLabel": "Social links and résumé", "hero.cv": "My résumé", "hero.cvSub": "Download",
     "hero.cta": "See my projects", "hero.cta2": "Get in touch",
-    "hero.hint": "Hover over me to suit up", "hero.hintTouch": "Touch me to suit up",
     "hero.photo": "Portrait of Ayoub ID-OUISSAADNE",
     "man.text": "<em>DEFENDING</em> SYSTEMS, <em>HUNTING</em> THREATS, BUILDING <em>TRUST</em>. SOC &amp; CYBERSECURITY ENGINEER <em>IN THE MAKING</em>.",
     "about.title": "ABOUT <em>ME</em>",
@@ -1285,281 +1239,6 @@ function setupReveal() {
     if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("will-reveal"); io.observe(el); }
   });
 }
-
-/* ---------- Effet hero « Armor reveal » ----------
-   Une armure de robot bleue originale (SVG, couleurs lues dans les variables CSS)
-   est rasterisée dans un canvas posé exactement sur le portrait :
-   - le buste est découpé sur la silhouette de la photo détourée,
-   - le casque est une forme lisse posée sur la tête.
-   La souris / le doigt dessine des éclats polygonaux, puis l'armure est appliquée
-   avec globalCompositeOperation = "source-in" : elle n'apparaît que dans les éclats. */
-
-const mirrorX = (d) => d.replace(/(\d+(?:\.\d+)?) (\d+(?:\.\d+)?)/g, (m, x, y) => `${890 - x} ${y}`);
-const SVG_HEAD = '<svg xmlns="http://www.w3.org/2000/svg" width="890" height="900" viewBox="0 0 890 900">';
-const glowFilter = '<filter id="gl" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
-
-/* Buste : col, plastron, épaulières, protège-bras (découpé ensuite sur la silhouette) */
-function armorBodySVG(c) {
-  const pauldron = "M20 800 C20 650 100 560 240 530 C300 545 330 600 312 660 C290 730 210 780 110 805 Z";
-  const bracer = "M0 900 L18 812 L120 806 L190 900 Z";
-  const chestLine = "M300 590 L262 652 L270 790 L330 870";
-  const pauldronLine = "M60 760 C80 660 150 590 240 560";
-  const sheen = "M70 720 C90 650 150 600 220 575";
-  const ribs = [440, 458, 476, 494, 512, 530, 548].map(y => `<path d="M346 ${y} L544 ${y}"/>`).join("");
-  return `${SVG_HEAD}<defs>
-    <linearGradient id="pl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.hi}"/><stop offset="1" stop-color="${c.mid}"/></linearGradient>
-    <linearGradient id="pd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c.hi}"/><stop offset=".7" stop-color="${c.mid}"/><stop offset="1" stop-color="${c.low}"/></linearGradient>
-    ${glowFilter}</defs>
-  <rect x="0" y="380" width="890" height="520" fill="${c.low}"/>
-  <path d="M352 420 L538 420 L552 570 L338 570 Z" fill="${c.mid}"/>
-  <g stroke="${c.low}" stroke-width="5">${ribs}</g>
-  <path d="M300 572 L590 572 L660 650 L640 800 L560 900 L330 900 L250 800 L230 650 Z" fill="url(#pl)" stroke="${c.low}" stroke-width="8"/>
-  <g fill="none" stroke="${c.low}" stroke-width="6">
-    <path d="M445 572 L445 900"/><path d="M245 700 L330 740 L445 730 L560 740 L645 700"/>
-    <path d="M300 820 L590 820"/><path d="M320 860 L570 860"/>
-  </g>
-  <g fill="url(#pd)" stroke="${c.low}" stroke-width="8"><path d="${pauldron}"/><path d="${mirrorX(pauldron)}"/></g>
-  <g fill="url(#pl)" stroke="${c.low}" stroke-width="6"><path d="${bracer}"/><path d="${mirrorX(bracer)}"/></g>
-  <g fill="none" stroke="${c.sheen}" stroke-width="6" stroke-linecap="round" opacity=".35"><path d="${sheen}"/><path d="${mirrorX(sheen)}"/></g>
-  <g fill="none" stroke="${c.glow}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)">
-    <path d="${chestLine}"/><path d="${mirrorX(chestLine)}"/><path d="${pauldronLine}"/><path d="${mirrorX(pauldronLine)}"/>
-    <path d="M352 432 L538 432"/>
-  </g>
-  <rect x="410" y="640" width="70" height="52" rx="8" fill="${c.visorA}" stroke="${c.glow}" stroke-width="2" filter="url(#gl)"/>
-  <path d="M445 652 L458 657 L458 667 C458 675 452 680 445 683 C438 680 432 675 432 667 L432 657 Z" fill="none" stroke="${c.glow}" stroke-width="2.4" filter="url(#gl)"/>
-</svg>`;
-}
-
-/* Casque : coque, crête, oreillettes, visière, protège-mâchoire */
-function armorHelmetSVG(c) {
-  const shell = "M445 2 C565 2 628 66 626 190 L622 300 C618 378 592 438 545 478 L505 500 L385 500 L345 478 C298 438 272 378 268 300 L264 190 C262 66 325 2 445 2 Z";
-  const visor = "M312 178 L578 178 L594 236 L566 304 L484 334 L445 356 L406 334 L324 304 L296 236 Z";
-  const jaw = "M300 300 L406 336 L412 430 L372 462 C332 432 306 382 300 330 Z";
-  const cheekLine = "M296 236 C290 300 300 380 350 450";
-  const mono = "ui-monospace, Menlo, Consolas, monospace";
-  return `${SVG_HEAD}<defs>
-    <linearGradient id="hl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c.hi}"/><stop offset=".6" stop-color="${c.mid}"/><stop offset="1" stop-color="${c.low}"/></linearGradient>
-    <linearGradient id="vz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.visorB}"/><stop offset="1" stop-color="${c.visorA}"/></linearGradient>
-    ${glowFilter}</defs>
-  <path d="${shell}" fill="url(#hl)" stroke="${c.low}" stroke-width="6"/>
-  <path d="M412 8 L478 8 L486 150 L404 150 Z" fill="${c.mid}" stroke="${c.low}" stroke-width="4"/>
-  <path d="M428 34h10v30h-10z M452 34h10v30h-10z" fill="${c.low}"/>
-  <path d="M282 182 C300 96 590 96 608 182" fill="none" stroke="${c.low}" stroke-width="6"/>
-  <g stroke="${c.low}" stroke-width="6" fill="url(#hl)"><circle cx="276" cy="282" r="38"/><circle cx="614" cy="282" r="38"/></g>
-  <g fill="${c.low}" stroke="${c.glow}" stroke-width="3" filter="url(#gl)"><circle cx="276" cy="282" r="15"/><circle cx="614" cy="282" r="15"/></g>
-  <g fill="${c.mid}" stroke="${c.low}" stroke-width="5"><path d="${jaw}"/><path d="${mirrorX(jaw)}"/></g>
-  <path d="M406 336 L445 358 L484 336 L478 432 L445 470 L412 432 Z" fill="${c.hi}" stroke="${c.low}" stroke-width="5"/>
-  <g stroke="${c.glow}" stroke-width="3" stroke-linecap="round" filter="url(#gl)"><path d="M426 380 L464 380"/><path d="M428 396 L462 396"/><path d="M432 412 L458 412"/></g>
-  <path d="${visor}" fill="url(#vz)"/>
-  <path d="M330 192 L436 192 L392 252 L318 238 Z" fill="${c.sheen}" opacity=".12"/>
-  <path d="M500 198 L560 198" stroke="${c.sheen}" stroke-width="3" stroke-linecap="round" opacity=".35"/>
-  <text x="445" y="276" text-anchor="middle" font-family="${mono}" font-size="13" font-weight="600" fill="${c.glow}" filter="url(#gl)">&gt; access_granted_</text>
-  <path d="${visor}" fill="none" stroke="${c.glow}" stroke-width="3.5" stroke-linejoin="round" filter="url(#gl)"/>
-  <g fill="none" stroke="${c.glow}" stroke-width="2.5" stroke-linecap="round" opacity=".9" filter="url(#gl)">
-    <path d="${cheekLine}"/><path d="${mirrorX(cheekLine)}"/><path d="M330 120 C380 70 510 70 560 120"/>
-  </g>
-</svg>`;
-}
-
-(function armorReveal() {
-  const fig = $("#portrait"), cvs = $("#maskCanvas"), hero = $(".hero"), photo = fig.querySelector("img");
-  const ctx = cvs && cvs.getContext ? cvs.getContext("2d") : null;
-  if (!ctx) { fig.classList.add("mask-fallback"); return; }   /* pas de canvas : halo au survol */
-
-  const coarse = matchMedia("(hover: none)").matches;
-  const staticMode = reduce.matches;                            /* prefers-reduced-motion : armure entière en fondu */
-  const art = document.createElement("canvas"), tintA = document.createElement("canvas"), tintB = document.createElement("canvas");
-  let W = 1, H = 1, dpr = 1, colors = {}, bodyImg = null, helmImg = null, artReady = false;
-  let shards = [], raf = 0, input = null, last = null, travel = 0, stillSince = 0, lastFill = 0, dwelling = false;
-  let sweepT0 = 0, sweepUntil = 0, sweepTimer = 0, heroVisible = true;
-  if (staticMode) cvs.classList.add("is-static");
-
-  const rand = (a, b) => a + Math.random() * (b - a);
-  const cssVar = (n) => getComputedStyle(fig).getPropertyValue(n).trim();
-  /* Le point (x, y en fractions du portrait) est-il sur l'armure ? k > 1 élargit la zone */
-  function onArmor(x, y, k = 1) {
-    const h = ARMOR_ZONE.head;
-    if (((x - h.cx) / h.rx) ** 2 + ((y - h.cy) / h.ry) ** 2 <= k * k) return true;
-    if (y < ARMOR_ZONE.bodyTop || y > 1) return false;
-    const t = (y - ARMOR_ZONE.bodyTop) / (1 - ARMOR_ZONE.bodyTop);
-    return Math.abs(x - 0.5) <= (ARMOR_ZONE.halfTop + Math.sqrt(t) * (ARMOR_ZONE.halfBottom - ARMOR_ZONE.halfTop)) * k;   /* épaules arrondies */
-  }
-
-  /* ---- Rendu de l'armure (couleurs du thème courant) ---- */
-  function loadSVG(svg, done) {
-    const img = new Image();
-    img.onload = done;
-    img.onerror = () => fig.classList.add("mask-fallback");
-    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-    return img;
-  }
-  function buildArt() {
-    colors = { hi: cssVar("--armor-hi"), mid: cssVar("--armor-mid"), low: cssVar("--armor-low"),
-      visorA: cssVar("--visor-a"), visorB: cssVar("--visor-b"), sheen: cssVar("--armor-sheen"),
-      glow: MASK_CONFIG.accent || cssVar("--mask-glow"), ga: cssVar("--glitch-a"), gb: cssVar("--glitch-b") };
-    let loaded = 0;
-    const done = () => { if (++loaded === 2) { bodyImg = b; helmImg = h; raster(); } };
-    const b = loadSVG(armorBodySVG(colors), done), h = loadSVG(armorHelmetSVG(colors), done);
-  }
-  function tint(target, color) {
-    target.width = W; target.height = H;
-    const c = target.getContext("2d");
-    c.drawImage(art, 0, 0); c.globalCompositeOperation = "source-in"; c.fillStyle = color; c.fillRect(0, 0, W, H);
-  }
-  function raster() {
-    if (!bodyImg || !helmImg || !photo.complete || !photo.naturalWidth) return;
-    art.width = W; art.height = H;
-    const a = art.getContext("2d");
-    a.drawImage(bodyImg, 0, 0, W, H);
-    a.globalCompositeOperation = "destination-in"; a.drawImage(photo, 0, 0, W, H);   /* buste = silhouette de la photo */
-    a.globalCompositeOperation = "source-over"; a.drawImage(helmImg, 0, 0, W, H);
-    tint(tintA, colors.ga); tint(tintB, colors.gb);       /* copies cyan / bleu pour le glitch RGB */
-    artReady = true;
-    if (staticMode) { ctx.clearRect(0, 0, W, H); ctx.drawImage(art, 0, 0); } else kick();
-  }
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = Math.max(1, Math.round(fig.offsetWidth * dpr));
-    H = Math.max(1, Math.round(fig.offsetHeight * dpr));
-    cvs.width = W; cvs.height = H;
-    raster();
-  }
-
-  /* ---- Fragments ---- */
-  function addShard(x, y, scale = 1, now = performance.now()) {
-    const size = MASK_CONFIG.shardSize * scale * rand(.7, 1.3);
-    let pts;
-    if (Math.random() < .22) {                         /* bloc « pixel glitch » */
-      const w = size * rand(.7, 1.4), h = size * rand(.3, .6);
-      pts = [[-w, -h], [w, -h], [w, h], [-w, h]];
-    } else {                                           /* éclat polygonal irrégulier */
-      const n = 4 + (Math.random() * 4 | 0);
-      pts = Array.from({ length: n }, (_, i) => {
-        const a = (i + rand(0, .8)) / n * Math.PI * 2, r = size * rand(.45, 1.05);
-        return [Math.cos(a) * r, Math.sin(a) * r];
-      });
-    }
-    shards.push({ x, y, pts, t0: now });
-    if (shards.length > MASK_CONFIG.maxShards) shards.shift();   /* nettoie les plus anciens */
-  }
-  function trace(s, k, dx = 0, dy = 0) {
-    const cx = s.x * W + dx, cy = s.y * H + dy;
-    ctx.beginPath();
-    s.pts.forEach(([px, py], i) => { const X = cx + px * W * k, Y = cy + py * W * k; i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); });
-    ctx.closePath();
-  }
-  /* Immobile sur le corps : on comble les zones encore vides autour du curseur */
-  function fillNear(p, elapsed) {
-    const spread = Math.min(.75, .08 + elapsed / 3000 * .67);
-    let best = null, bestD = -1;
-    for (let i = 0; i < 10; i++) {
-      const a = rand(0, Math.PI * 2), d = Math.sqrt(Math.random()) * spread;
-      const x = p.x + Math.cos(a) * d, y = p.y + Math.sin(a) * d * W / H;
-      if (!onArmor(x, y, 1.02)) continue;
-      let nd = Infinity;
-      for (const s of shards) nd = Math.min(nd, Math.hypot(s.x - x, (s.y - y) * H / W));
-      if (nd > bestD) { bestD = nd; best = { x, y }; }
-    }
-    if (best && bestD > MASK_CONFIG.shardSize * .8) addShard(best.x, best.y, 2);
-  }
-  function handleInput(now) {
-    const p = input;
-    if (!p) { last = null; dwelling = false; return; }
-    if (!last) { last = { x: p.x, y: p.y }; stillSince = now; addShard(p.x, p.y, 1, now); return; }
-    const dx = p.x - last.x, dy = (p.y - last.y) * H / W, d = Math.hypot(dx, dy);
-    if (d > .003) {
-      travel += d; stillSince = now; dwelling = false;
-      const stepLen = MASK_CONFIG.shardSize * .5, n = Math.min(6, Math.floor(travel / stepLen));
-      for (let i = 1; i <= n; i++) {
-        const t = i / n, j = MASK_CONFIG.shardSize * .4;
-        addShard(last.x + (p.x - last.x) * t + rand(-j, j), last.y + (p.y - last.y) * t + rand(-j, j), 1, now);
-      }
-      travel = n ? Math.min(travel - n * stepLen, stepLen) : travel;
-      last = { x: p.x, y: p.y };
-    } else {
-      dwelling = !p.auto && onArmor(p.x, p.y, 1.15) && now - stillSince > MASK_CONFIG.dwellDelay;
-      if (dwelling && now - lastFill > 60) { lastFill = now; fillNear(p, now - stillSince - MASK_CONFIG.dwellDelay); }
-    }
-  }
-
-  /* ---- Boucle d'animation (requestAnimationFrame, s'arrête quand tout est effacé) ---- */
-  function frame(now) {
-    raf = 0;
-    if (sweepUntil > now) {
-      const t = (now - sweepT0) / 1000;
-      input = { x: 0.5 + 0.3 * Math.sin(t * 1.6), y: 0.45 + 0.32 * Math.sin(t * 1.1 + .8), auto: true };
-    } else if (input && input.auto) input = null;
-    handleInput(now);
-
-    const T = MASK_CONFIG.trail, A = MASK_CONFIG.appear, hold = T * MASK_CONFIG.fadeStart;
-    if (dwelling) for (const s of shards) if (now - s.t0 > A) s.t0 = now - A;   /* l'armure reste et se complète */
-    shards = shards.filter(s => now - s.t0 < T);
-
-    ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H);
-    if (artReady && shards.length) {
-      ctx.fillStyle = colors.glow;
-      for (const s of shards) {                                   /* 1. silhouettes des éclats (scale + fade) */
-        const age = now - s.t0, e = 1 - (1 - Math.min(1, age / A)) ** 3;
-        ctx.globalAlpha = e * (age < hold ? 1 : 1 - (age - hold) / (T - hold));
-        trace(s, .55 + .45 * e); ctx.fill();
-      }
-      ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-in";
-      ctx.drawImage(art, 0, 0);                                   /* 2. l'armure n'apparaît que dans les éclats */
-      ctx.globalCompositeOperation = "source-over";
-      const g = MASK_CONFIG.glitch * dpr;
-      for (const s of shards) {                                   /* 3. glitch RGB split cyan / bleu sur les éclats neufs */
-        const age = now - s.t0;
-        if (age >= A) continue;
-        const k = 1 - age / A, off = g * k * rand(.5, 1.2);
-        for (const [tc, dx] of [[tintA, off], [tintB, -off]]) {
-          const dy = rand(-.3, .3) * g * k;
-          ctx.save(); trace(s, 1, dx, dy); ctx.clip(); ctx.globalAlpha = .7 * k; ctx.drawImage(tc, dx, dy); ctx.restore();
-        }
-      }
-    }
-    if (shards.length || input || sweepUntil > now) raf = requestAnimationFrame(frame);
-  }
-  function kick() { if (!raf && !staticMode) raf = requestAnimationFrame(frame); }
-
-  /* ---- Entrées souris / tactile (coordonnées relatives au portrait, en %) ---- */
-  function setInput(clientX, clientY) {
-    const r = fig.getBoundingClientRect();
-    const x = (clientX - r.left) / r.width, y = (clientY - r.top) / r.height;
-    input = (x >= 0 && x <= 1 && y >= 0 && y <= 1) ? { x, y } : null;
-    if (staticMode) { cvs.classList.toggle("is-full", !!input && onArmor(x, y, 1.2)); input = null; return; }
-    kick();
-  }
-  function onTouch(e) {
-    const t = e.touches[0];
-    if (!t) return;
-    sweepUntil = 0; clearTimeout(sweepTimer);
-    setInput(t.clientX, t.clientY);
-  }
-  hero.addEventListener("mousemove", e => { sweepUntil = 0; scheduleSweep(); setInput(e.clientX, e.clientY); }, { passive: true });
-  hero.addEventListener("mouseleave", () => { input = null; if (staticMode) cvs.classList.remove("is-full"); });
-  hero.addEventListener("touchstart", onTouch, { passive: true });
-  hero.addEventListener("touchmove", onTouch, { passive: true });
-  hero.addEventListener("touchend", () => { input = null; scheduleSweep(); }, { passive: true });
-
-  /* ---- Mobile : balayage automatique doux après MASK_CONFIG.idleSweep ms sans toucher ---- */
-  function scheduleSweep() {
-    if (!coarse || staticMode) return;
-    clearTimeout(sweepTimer);
-    sweepTimer = setTimeout(() => {
-      if (heroVisible && !document.hidden && !(input && !input.auto)) { sweepT0 = performance.now(); sweepUntil = sweepT0 + 4200; kick(); }
-      scheduleSweep();
-    }, MASK_CONFIG.idleSweep + (sweepUntil > performance.now() ? 4200 : 0));
-  }
-  new IntersectionObserver(([en]) => { heroVisible = en.isIntersecting; }).observe(hero);
-
-  /* ---- Init + recalcul au redimensionnement, au chargement de la photo et au changement de thème ---- */
-  new ResizeObserver(resize).observe(fig);
-  if (!photo.complete) photo.addEventListener("load", raster);
-  new MutationObserver(buildArt).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
-  mqDark.addEventListener?.("change", buildArt);
-  buildArt();
-  scheduleSweep();
-})();
 
 /* ---------- Init ---------- */
 $("#year").textContent = new Date().getFullYear();
