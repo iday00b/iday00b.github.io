@@ -180,8 +180,12 @@ html.is-loading{overflow:hidden}
 .hdr{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);color:var(--text);transition:background-color .35s,box-shadow .35s}
 .hdr.is-scrolled{background:color-mix(in srgb,var(--bg) 86%,transparent);box-shadow:0 1px 0 var(--border);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
 .hdr__in{display:flex;align-items:center;gap:18px;height:68px}
-.logo{display:flex;flex-direction:column;line-height:.84;text-decoration:none;font-family:var(--f-display);font-weight:850;font-stretch:74%;text-transform:uppercase;font-size:1.05rem;letter-spacing:.01em}
-.logo em{font-family:var(--f-serif);font-style:normal;font-weight:500;font-stretch:100%;color:var(--kw);font-size:1.02em;letter-spacing:.02em}
+/* Logo : grand « A » serif traversé par « youb » écrit à la main (tailles en em pour l'agrandir facilement) */
+.logo{position:relative;display:inline-flex;align-items:flex-end;flex:none;font-size:1rem;padding-left:1.3em;text-decoration:none;color:var(--text);line-height:1}
+.logo__a{font-family:var(--f-serif);font-weight:500;font-size:3.6em;line-height:.78;transition:color .3s,text-shadow .3s}
+.logo__youb{position:absolute;left:0;bottom:-.38em;font-family:var(--f-pen);font-size:2em;line-height:1;white-space:nowrap;color:var(--kw);rotate:-5deg;transform-origin:left bottom;pointer-events:none}
+.logo:hover .logo__a,.logo:focus-visible .logo__a{color:var(--kw);text-shadow:0 0 18px color-mix(in srgb,var(--accent-2) 55%,transparent)}
+.logo--lg{font-size:1.45rem}
 .hdr__nav{display:none;margin-inline:auto;gap:clamp(14px,1.5vw,26px)}
 .hdr__nav a{position:relative;font-size:.72rem;font-weight:650;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding-block:6px}
 .hdr__nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
@@ -524,9 +528,7 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
 <!-- ================= HEADER ================= -->
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
-    <a class="logo" href="#top" aria-label="ID-OUISSAADNE Ayoub">
-      <span>ID-OUISSAADNE</span><em>AYOUB</em>
-    </a>
+    <a class="logo" href="#top" aria-label="Ayoub ID-OUISSAADNE"><span class="logo__a" aria-hidden="true">A</span><span class="logo__youb" aria-hidden="true">youb</span></a>
     <nav class="hdr__nav" id="nav" data-i18n-aria="nav.label" aria-label="Navigation principale">
       <a href="#about" data-i18n="nav.about">À propos</a>
       <a href="#skills" data-i18n="nav.skills">Compétences</a>
@@ -558,7 +560,7 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
 <div class="menu band" id="menu" hidden>
   <div class="wrap">
     <div class="menu__top">
-      <a class="logo" href="#top" data-close><span>ID-OUISSAADNE</span><em>AYOUB</em></a>
+      <a class="logo" href="#top" data-close aria-label="Ayoub ID-OUISSAADNE"><span class="logo__a" aria-hidden="true">A</span><span class="logo__youb" aria-hidden="true">youb</span></a>
       <button type="button" class="icon-btn" id="menuClose" data-i18n-aria="a11y.close" aria-label="Fermer le menu">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
       </button>
@@ -754,7 +756,7 @@ a.cicon:hover{background:var(--accent);color:var(--on-accent);box-shadow:inset 0
     </div>
     <div class="ftr__grid">
       <div class="ftr__col">
-        <a class="logo" href="#top"><span>ID-OUISSAADNE</span><em>AYOUB</em></a>
+        <a class="logo logo--lg" href="#top" aria-label="Ayoub ID-OUISSAADNE"><span class="logo__a" aria-hidden="true">A</span><span class="logo__youb" aria-hidden="true">youb</span></a>
         <p class="hero__loc" style="margin-top:14px" data-i18n="footer.based">Basé à Taroudant, Maroc · Ouvert au déplacement</p>
       </div>
       <div class="ftr__col"><h3 data-i18n="footer.nav">Navigation</h3><ul id="footNav"></ul></div>
